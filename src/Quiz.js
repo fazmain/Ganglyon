@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Box, Button, Radio, RadioGroup, Stack, Text, VStack, HStack } from "@chakra-ui/react";
 import { doc, setDoc, increment } from "firebase/firestore";
 import { db } from "./firebase-config";
@@ -13,8 +13,12 @@ const Quiz = ({ quizzes, user }) => {
   const [showScore, setShowScore] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState({});
 
+  const handleOptionChange = (value) => {
+    setSelectedOptions(value);
+  };
+
   const handleTFChange = (optionKey, value) => {
-    setSelectedOptions((prev) => ({
+    setSelectedOptions(prev => ({
       ...prev,
       [optionKey]: value === "true",
     }));
@@ -24,19 +28,19 @@ const Quiz = ({ quizzes, user }) => {
     const question = quiz.questions[currentQuestionIndex];
     let points = 0;
 
-    if (typeof question.correct === "object") {  // Handling True/False question
+    if (quiz.quizType === "TF") {
       for (const [key, isCorrect] of Object.entries(question.correct)) {
         if (selectedOptions[key] === isCorrect) {
-          points += 0.2;  // Increment by 0.2 for each correct TF answer
+          points += 1 / Object.keys(question.correct).length;  // Evenly distribute points across all TF options
         }
       }
-    } else {  // Handling MCQ question
+    } else if (quiz.quizType === "MCQ") {
       if (selectedOptions === question.correct) {
         points = 1;  // Full point for a correct MCQ answer
       }
     }
 
-    setScore((prev) => prev + points);
+    setScore(prev => prev + points);
 
     if (currentQuestionIndex < quiz.questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
@@ -66,7 +70,7 @@ const Quiz = ({ quizzes, user }) => {
   }
 
   const currentQuestion = quiz.questions[currentQuestionIndex];
-  const isTF = typeof currentQuestion.correct === "object";  // True if the 'correct' property is an object (TF question)
+  const isTF = quiz.quizType === "TF";  // Determine if it's a True/False quiz based on quizType
 
   return (
     <Box>
@@ -76,7 +80,7 @@ const Quiz = ({ quizzes, user }) => {
           Object.keys(currentQuestion.options).map((key) => (
             <HStack key={key}>
               <Text>{`${currentQuestion.options[key]} (${key.toUpperCase()}):`}</Text>
-              <RadioGroup onChange={(value) => handleTFChange(key, value)} value={selectedOptions[key]?.toString()}>
+              <RadioGroup onChange={(e) => handleTFChange(key, e)} value={selectedOptions[key]?.toString()}>
                 <Stack direction="row">
                   <Radio value="true">True</Radio>
                   <Radio value="false">False</Radio>
@@ -84,7 +88,7 @@ const Quiz = ({ quizzes, user }) => {
               </RadioGroup>
             </HStack>
           )) :
-          <RadioGroup onChange={(value) => setSelectedOptions(value)} value={selectedOptions}>
+          <RadioGroup onChange={handleOptionChange} value={selectedOptions}>
             <Stack direction="row">
               {currentQuestion.options.map((option, index) => (
                 <Radio key={index} value={option}>{option}</Radio>
