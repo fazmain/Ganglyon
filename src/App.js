@@ -11,7 +11,13 @@ import Quiz from "./Quiz";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
 import quizzes from "./quizData";
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  Navigate,
+} from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -25,7 +31,9 @@ function App() {
 
   const signInWithGoogle = () => {
     const googleAuthProvider = new GoogleAuthProvider();
-    signInWithPopup(auth, googleAuthProvider).catch((error) => alert(error.message));
+    signInWithPopup(auth, googleAuthProvider).catch((error) =>
+      alert(error.message)
+    );
   };
 
   const signOut = () => {
@@ -39,15 +47,25 @@ function App() {
           {user ? (
             <>
               <Box mb={4}>
-                <Button onClick={signOut} colorScheme="red">Sign Out</Button>
+                <Button onClick={signOut} colorScheme="red">
+                  Sign Out
+                </Button>
                 <Link to="/dashboard">
-                  <Button colorScheme="teal" ml={3}>Dashboard</Button>
+                  <Button colorScheme="teal" ml={3}>
+                    Dashboard
+                  </Button>
                 </Link>
               </Box>
               <Routes>
                 <Route path="/" element={<Navigate replace to="/landing" />} />
-                <Route path="/landing" element={<LandingPage quizzes={quizzes} />} />
-                <Route path="/quiz/:quizID" element={<Quiz quizzes={quizzes} user={user} />} />
+                <Route
+                  path="/landing"
+                  element={<LandingPage user={user} quizzes={quizzes} />}
+                />
+                <Route
+                  path="/quiz/:quizID"
+                  element={<Quiz quizzes={quizzes} user={user} />}
+                />
                 <Route path="/dashboard" element={<Dashboard user={user} />} />
               </Routes>
             </>

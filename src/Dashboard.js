@@ -28,7 +28,8 @@ const Dashboard = ({ user }) => {
             {quizResults.map(result => (
                 <Box key={result.id} p={3} m={1} borderWidth="1px">
                     <Text>Quiz ID: {result.id}</Text>
-                    <Text>Score: {result.score}</Text>
+                    <Text>Last Score: {result.lastAttemptScore}</Text>
+                    <Text>Quiz Info: {result.quizInfo}</Text>
                     <Text>Total Questions: {result.totalQuestions}</Text>
                     <Text>Attempts: {result.attempts}</Text>
                 </Box>
