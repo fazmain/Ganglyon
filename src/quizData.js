@@ -1034,7 +1034,7 @@ const quizzes = [
     },
     {
       "quizID": "0020",
-      "quizSubject": "anatomy",
+      "quizSubject": "Anatomy",
       "quizChapter": "thorax",
       "quizType": "TF",
       "questions": [
@@ -1062,7 +1062,7 @@ const quizzes = [
     },
     {
       "quizID": "0021",
-      "quizSubject": "anatomy",
+      "quizSubject": "Anatomy",
       "quizChapter": "upper limb",
       "quizType": "TF",
       "questions": [
@@ -1090,7 +1090,7 @@ const quizzes = [
     },
     {
       "quizID": "0022",
-      "quizSubject": "anatomy",
+      "quizSubject": "Anatomy",
       "quizChapter": "abdomen",
       "quizType": "TF",
       "questions": [
@@ -1118,7 +1118,7 @@ const quizzes = [
     },
     {
       "quizID": "0023",
-      "quizSubject": "anatomy",
+      "quizSubject": "Anatomy",
       "quizChapter": "lower limb",
       "quizType": "TF",
       "questions": [
@@ -1146,7 +1146,7 @@ const quizzes = [
     },
     {
       "quizID": "0024",
-      "quizSubject": "anatomy",
+      "quizSubject": "Anatomy",
       "quizChapter": "head & neck",
       "quizType": "TF",
       "questions": [
@@ -1174,10 +1174,50 @@ const quizzes = [
     },
     {
       "quizID": "0025",
-      "quizSubject": "anatomy",
+      "quizSubject": "Anatomy",
       "quizChapter": "brain & eyeball",
       "quizType": "TF",
       "questions": [
+        {
+          "questionID": "001",
+          "questionUni": "DU",
+          "questionYear": "2024",
+          "question": "Which structure is responsible for maintaining balance and posture?",
+          "options": {
+            "a": "Cerebellum",
+            "b": "Cerebrum",
+            "c": "Thalamus",
+            "d": "Hypothalamus",
+            "e": "Medulla oblongata"
+          },
+          "correct": {
+            "a": true,
+            "b": false,
+            "c": false,
+            "d": false,
+            "e": false
+          }
+        },
+        {
+          "questionID": "001",
+          "questionUni": "DU",
+          "questionYear": "2024",
+          "question": "Which structure is responsible for maintaining balance and posture?",
+          "options": {
+            "a": "Cerebellum",
+            "b": "Cerebrum",
+            "c": "Thalamus",
+            "d": "Hypothalamus",
+            "e": "Medulla oblongata"
+          },
+          "correct": {
+            "a": true,
+            "b": false,
+            "c": false,
+            "d": false,
+            "e": false
+          }
+        },
         {
           "questionID": "001",
           "questionUni": "DU",

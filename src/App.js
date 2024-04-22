@@ -10,6 +10,7 @@ import { Button, Box, ChakraProvider } from "@chakra-ui/react";
 import Quiz from "./Quiz";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
+import Navbar from "./NavBar";
 import quizzes from "./quizData";
 import {
   BrowserRouter as Router,
@@ -43,6 +44,7 @@ function App() {
   return (
     <ChakraProvider>
       <Router>
+        <Navbar user = {user} />
         <Box p={4}>
           {user ? (
             <>

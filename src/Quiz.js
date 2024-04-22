@@ -12,6 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { doc, setDoc, increment, arrayUnion } from "firebase/firestore";
 import { db } from "./firebase-config";
+import ScoreDisplay from "./ScoreDisplay";
+import MCQQuestion from "./MCQQuestion";
+import TFQuestion from "./TFQuestion";
 
 const Quiz = ({ quizzes, user }) => {
   const { quizID } = useParams();
@@ -21,6 +24,8 @@ const Quiz = ({ quizzes, user }) => {
   const [score, setScore] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState({});
+  const [wrongAnswers, setWrongAnswers] = useState(0);
+  const [skip, setSkip] = useState(0);
 
   useEffect(() => {
     if (showScore) {
@@ -50,8 +55,12 @@ const Quiz = ({ quizzes, user }) => {
         }
       }
     } else if (quiz.quizType === "MCQ") {
-      if (selectedOptions === question.correct) {
-        points = 1; // Full point for a correct MCQ answer
+      if (Object.keys(selectedOptions).length === 0) {
+      setSkip((prev) => prev + 1);
+      } else if (selectedOptions === question.correct) {
+      points = 1; // Full point for a correct MCQ answer
+      } else {
+      setWrongAnswers((prev) => prev + 1);
       }
     }
 
@@ -86,9 +95,9 @@ const Quiz = ({ quizzes, user }) => {
 
   if (showScore) {
     return (
-      <Text>
-        You scored {score.toFixed(1)} out of {quiz.questions.length}
-      </Text>
+      <Box>
+        <ScoreDisplay score={score} totalQuestions={quiz.questions.length} wrong={wrongAnswers} skip = {skip} quiz = {quiz} />;
+      </Box>
     );
   }
 
@@ -100,32 +109,17 @@ const Quiz = ({ quizzes, user }) => {
       <Text mb={4}>{currentQuestion.question}</Text>
       <VStack spacing={4}>
         {isTF ? (
-          Object.keys(currentQuestion.options).map((key) => (
-            <HStack key={key}>
-              <Text>{`${
-                currentQuestion.options[key]
-              } (${key.toUpperCase()}):`}</Text>
-              <RadioGroup
-                onChange={(e) => handleTFChange(key, e)}
-                value={selectedOptions[key]?.toString()}
-              >
-                <Stack direction="row">
-                  <Radio value="true">True</Radio>
-                  <Radio value="false">False</Radio>
-                </Stack>
-              </RadioGroup>
-            </HStack>
-          ))
+          <TFQuestion
+            question={currentQuestion}
+            handleTFChange={handleTFChange}
+            selectedOptions={selectedOptions}
+          />
         ) : (
-          <RadioGroup onChange={handleOptionChange} value={selectedOptions}>
-            <Stack direction="row">
-              {currentQuestion.options.map((option, index) => (
-                <Radio key={index} value={option}>
-                  {option}
-                </Radio>
-              ))}
-            </Stack>
-          </RadioGroup>
+          <MCQQuestion
+            question={currentQuestion}
+            handleOptionChange={handleOptionChange}
+            selectedOptions={selectedOptions}
+          />
         )}
       </VStack>
       <Button
