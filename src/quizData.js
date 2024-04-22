@@ -1202,17 +1202,17 @@ const quizzes = [
           "questionID": "001",
           "questionUni": "DU",
           "questionYear": "2024",
-          "question": "Which structure is responsible for maintaining balance and posture?",
+          "question": "Which of the following muscles is NOT located in the neck?",
           "options": {
-            "a": "Cerebellum",
-            "b": "Cerebrum",
-            "c": "Thalamus",
-            "d": "Hypothalamus",
-            "e": "Medulla oblongata"
+            "a": "Sternocleidomastoid",
+            "b": "Masseter",
+            "c": "Scalene",
+            "d": "Trapezius",
+            "e": "Platysma"
           },
           "correct": {
-            "a": true,
-            "b": false,
+            "a": false,
+            "b": true,
             "c": false,
             "d": false,
             "e": false

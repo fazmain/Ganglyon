@@ -53,11 +53,13 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
         <Button mt={4} colorScheme="blue" onClick={handleTakeAnotherQuiz}>
           Take another quiz
         </Button>
+        <Button
+          onClick={() => window.location.reload()}
+          colorScheme="blue"
+        >
+          Take quiz again!
+        </Button>
       </Box>
-      
-      {/* <Button mt={4} colorScheme="blue" onClick={handleTakeAnotherQuiz}>
-        Take another quiz
-      </Button> */}
     </Box>
   );
 };
