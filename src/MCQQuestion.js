@@ -1,17 +1,27 @@
-// MCQQuestion.js
-import React from 'react';
-import { RadioGroup, Stack, Radio } from "@chakra-ui/react";
+import React from "react";
+import { RadioGroup, Radio, SimpleGrid, Box } from "@chakra-ui/react";
 
 const MCQQuestion = ({ question, handleOptionChange, selectedOptions }) => {
   return (
     <RadioGroup onChange={handleOptionChange} value={selectedOptions}>
-      <Stack direction="row">
+      <SimpleGrid columns={{ base: 1, md: 1, lg: 1 }} spacing={5} padding={5}>
         {question.options.map((option, index) => (
-          <Radio key={index} value={option}>
-            {option}
-          </Radio>
+          <Box border="1px" borderRadius={"lg"}>
+            <Radio
+              key={index}
+              value={option}
+              size="lg"
+              colorScheme="purple"
+              padding={2}
+              borderWidth="1px"
+              _hover={{ bg: "gray.50" }}
+              _focusWithin={{ bg: "gray.50" }}
+            >
+              {option}
+            </Radio>
+          </Box>
         ))}
-      </Stack>
+      </SimpleGrid>
     </RadioGroup>
   );
 };

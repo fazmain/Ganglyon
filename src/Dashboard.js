@@ -9,24 +9,36 @@ import {
   Heading,
   Divider,
   Button,
+  Flex,
+  Icon,
+  Link,
+  Skeleton,
+  SkeletonText,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  Grid,
+  GridItem,
+  AspectRatio,
 } from "@chakra-ui/react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   Navigate,
-  useNavigate
+  useNavigate,
 } from "react-router-dom";
-
 
 const Dashboard = ({ user }) => {
   const [quizResults, setQuizResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchQuizResults = async () => {
+      setLoading(true);
       if (user) {
         const q = query(collection(db, "users", user.uid, "quizzes"));
         const querySnapshot = await getDocs(q);
@@ -36,10 +48,20 @@ const Dashboard = ({ user }) => {
         }));
         setQuizResults(results);
       }
+      setLoading(false);
     };
 
     fetchQuizResults();
   }, [user]);
+
+  if (loading) {
+    return (
+      <Container centerContent>
+        <Skeleton height="40px" />
+        <SkeletonText mt="4" noOfLines={4} spacing="4" />
+      </Container>
+    );
+  }
 
   if (!quizResults.length) {
     return (
@@ -49,41 +71,61 @@ const Dashboard = ({ user }) => {
     );
   }
 
-return (
+  return (
     <Container maxW="container.xl" py={5}>
-        <Heading as="h1" size="xl" mb={6}>
-            All Results
+      <Flex justify="space-between" align="center" mb={6}>
+        <Heading as="h1" size="xl">
+          Dashboard
         </Heading>
-        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
-            {quizResults.map((result) => (
-                <Box
-                    key={result.id}
-                    p={5}
-                    shadow="md"
-                    borderWidth="1px"
-                    borderRadius="lg"
-                >
-                    <Heading as="h3" size="md">
-                        {result.quizInfo}
-                    </Heading>
-                    <Text fontSize="lg" mt={2}>
-                        <strong>Last Score:</strong> {result.lastAttemptScore}
-                    </Text>
-                    <Text fontSize="lg">
-                        <strong>Total Questions:</strong> {result.totalQuestions}
-                    </Text>
-                    <Text fontSize="lg">
-                        <strong>Attempts:</strong> {result.attempts}
-                    </Text>
-                    <Divider my={3} />
-                    <Button onClick={() => navigate(`/quiz/${result.id}`)} colorScheme="blue">
-                        Take quiz again!
-                    </Button>
-                </Box>
-            ))}
-        </SimpleGrid>
+      </Flex>
+      <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
+        {quizResults.map((result) => (
+          <Box
+            key={result.id}
+            p={5}
+            shadow="md"
+            borderWidth="1px"
+            borderRadius="lg"
+          >
+            <Heading as="h3" size="md">
+              {result.quizInfo}
+            </Heading>
+
+            <Text fontSize="lg">
+              <strong>Total Questions:</strong> {result.totalQuestions}
+            </Text>
+
+            <Divider my={3} />
+            <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+              <GridItem>
+                <Stat>
+                  <StatLabel>Attempts</StatLabel>
+                  <StatNumber>{result.attempts}</StatNumber>
+                  <StatHelpText>
+                    Number of times you've taken this quiz
+                  </StatHelpText>
+                </Stat>
+              </GridItem>
+              <GridItem>
+                <Stat>
+                  <StatLabel>Last Score</StatLabel>
+                  <StatNumber>{result.lastAttemptScore}</StatNumber>
+                  <StatHelpText>Your score in the last attempt</StatHelpText>
+                </Stat>
+              </GridItem>
+            </Grid>
+            <Button
+              onClick={() => navigate(`/quiz/${result.id}`)}
+              colorScheme="purple"
+              
+            >
+              Take quiz again!
+            </Button>
+          </Box>
+        ))}
+      </SimpleGrid>
     </Container>
-);
+  );
 };
 
 export default Dashboard;

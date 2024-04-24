@@ -6,7 +6,7 @@ import {
   signOut as firebaseSignOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { Button, Box, ChakraProvider } from "@chakra-ui/react";
+import { Button, Box, ChakraProvider, Container } from "@chakra-ui/react";
 import Quiz from "./Quiz";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
@@ -19,6 +19,7 @@ import {
   Link,
   Navigate,
 } from "react-router-dom";
+import Welcome from "./Welcome";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -44,39 +45,35 @@ function App() {
   return (
     <ChakraProvider>
       <Router>
-        <Navbar user = {user} />
-        <Box p={4}>
-          {user ? (
-            <>
-              <Box mb={4}>
-                <Button onClick={signOut} colorScheme="red">
-                  Sign Out
-                </Button>
-                <Link to="/dashboard">
-                  <Button colorScheme="teal" ml={3}>
-                    Dashboard
-                  </Button>
-                </Link>
-              </Box>
-              <Routes>
-                <Route path="/" element={<Navigate replace to="/landing" />} />
-                <Route
-                  path="/landing"
-                  element={<LandingPage user={user} quizzes={quizzes} />}
-                />
-                <Route
-                  path="/quiz/:quizID"
-                  element={<Quiz quizzes={quizzes} user={user} />}
-                />
-                <Route path="/dashboard" element={<Dashboard user={user} />} />
-              </Routes>
-            </>
-          ) : (
-            <Button onClick={signInWithGoogle} colorScheme="blue">
-              Sign in to take a quiz
-            </Button>
-          )}
-        </Box>
+        <Container maxW="container.xl" p={4} pt={6}>
+          <Navbar user={user} auth = {auth} signInWithGoogle={signInWithGoogle} />
+          <Box p={4}>
+            {user ? (
+              <>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<Navigate replace to="/landing" />}
+                  />
+                  <Route
+                    path="/landing"
+                    element={<LandingPage user={user} quizzes={quizzes} />}
+                  />
+                  <Route
+                    path="/quiz/:quizID"
+                    element={<Quiz quizzes={quizzes} user={user} />}
+                  />
+                  <Route
+                    path="/dashboard"
+                    element={<Dashboard user={user} />}
+                  />
+                </Routes>
+              </>
+            ) : (
+            <Welcome signInWithGoogle={signInWithGoogle}/>
+            )}
+          </Box>
+        </Container>
       </Router>
     </ChakraProvider>
   );

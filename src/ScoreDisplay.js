@@ -6,6 +6,7 @@ import {
   StatHelpText,
   Button,
   Divider,
+  VStack,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,15 +19,15 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
 
   return (
     <Box
-      maxW="sm"
+      maxW="md"
       borderWidth="1px"
+      borderColor={"purple.400"}
       borderRadius="lg"
       overflow="hidden"
-      p={4}
+      p={7}
       m="auto"
       mt={5}
       textAlign="center"
-      bg="blue.50"
     >
       <Box>
         {quiz.quizType === "MCQ" ? (
@@ -36,7 +37,7 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
             <StatNumber fontSize="2xl">{`Correct: ${score}`}</StatNumber>
             <StatNumber fontSize="2xl">{`Wrong: ${wrong}`}</StatNumber>
             <StatNumber fontSize="2xl">{`Skipped: ${skip}`}</StatNumber>
-            <Divider />
+          
             <StatLabel fontSize="lg">
               You scored {score.toFixed(1)} out of {totalQuestions.toFixed(1)}
             </StatLabel>
@@ -49,16 +50,14 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
             </StatLabel>
           </Stat>
         )}
-
-        <Button mt={4} colorScheme="blue" onClick={handleTakeAnotherQuiz}>
-          Take another quiz
-        </Button>
-        <Button
-          onClick={() => window.location.reload()}
-          colorScheme="blue"
-        >
-          Take quiz again!
-        </Button>
+        <VStack>
+          <Button mt={4} colorScheme="purple" onClick={handleTakeAnotherQuiz}>
+            Take another quiz
+          </Button>
+          <Button onClick={() => window.location.reload()} colorScheme="red">
+            Take quiz again!
+          </Button>
+        </VStack>
       </Box>
     </Box>
   );
