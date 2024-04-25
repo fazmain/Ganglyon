@@ -153,8 +153,11 @@ const LandingPage = ({ quizzes, user }) => {
                 <Text fontSize="lg" fontWeight="bold">
                   {quiz.quizChapter}
                 </Text>
-                <Text fontSize="md" color="gray.500">
+                <Text fontSize="md" color="gray.700">
                   {quiz.quizType === "TF" ? "MCQ" : "SBA"}
+                </Text>
+                <Text fontSize="md" color="gray.700">
+                  {quiz.questions.length} Questions
                 </Text>
               </CardHeader>
               <CardBody>

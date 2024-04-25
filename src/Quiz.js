@@ -11,6 +11,7 @@ import {
   CardBody,
   CardFooter,
   Divider,
+  Tag,
 } from "@chakra-ui/react";
 import { doc, setDoc, increment, arrayUnion } from "firebase/firestore";
 import { db } from "./firebase-config";
@@ -18,11 +19,21 @@ import ScoreDisplay from "./ScoreDisplay";
 import MCQQuestion from "./MCQQuestion";
 import TFQuestion from "./TFQuestion";
 
+
+
+
 const Quiz = ({ quizzes, user }) => {
   const { quizID } = useParams();
-  const quiz = quizzes.find((q) => q.quizID === quizID);
+  let quiz = quizzes.find((q) => q.quizID === quizID);
 
-  const [timeLeft, setTimeLeft] = useState(5);
+  // const getRandomQuestions = (questions, count) => {
+  //   const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
+  //   return shuffledQuestions.slice(0, count);
+  // };
+
+  // const randomQuiz = getRandomQuestions(quiz.questions, 10);
+
+  const [timeLeft, setTimeLeft] = useState(120);
   const [timerActive, setTimerActive] = useState(true);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -42,7 +53,6 @@ const Quiz = ({ quizzes, user }) => {
     } else if (timeLeft === 0) {
       setTimerActive(false);
       handleQuizFinish();
-      
     }
 
     return () => clearInterval(interval);
@@ -132,7 +142,6 @@ const Quiz = ({ quizzes, user }) => {
   };
 
   if (showScore || timeLeft === 0) {
-
     return (
       <Box>
         <ScoreDisplay
@@ -154,14 +163,18 @@ const Quiz = ({ quizzes, user }) => {
     <Container>
       <Card>
         <VStack spacing={4}>
+          <CardHeader>
+            <Text fontSize={"2xl"} as="b">
+              {currentQuestion.question}
+            </Text>
+            <Tag colorScheme="purple" size={"md"}>
+              {" "}
+              {currentQuestion.questionUni}
+            </Tag>
+          </CardHeader>
+          <Divider />
           {isTF ? (
             <>
-              <CardHeader>
-                <Text fontSize={"lg"} as="b">
-                  {currentQuestion.question}
-                </Text>
-              </CardHeader>
-              <Divider />
               <CardBody>
                 <TFQuestion
                   key={`TF-${currentQuestionIndex}`} // Unique key that changes with each question
@@ -173,12 +186,6 @@ const Quiz = ({ quizzes, user }) => {
             </>
           ) : (
             <>
-              <CardHeader pt={7}>
-                <Text fontSize={"xl"} as="b">
-                  {currentQuestion.question}
-                </Text>
-              </CardHeader>
-              <Divider />
               <CardBody>
                 <MCQQuestion
                   key={`MCQ-${currentQuestionIndex}`} // Unique key that changes with each question
