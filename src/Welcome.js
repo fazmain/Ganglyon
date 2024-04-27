@@ -27,7 +27,7 @@ const Welcome = ({ signInWithGoogle }) => {
       <HStack spacing={200}>
         <Box pl={"7%"}>
           <Heading
-            color={colorMode === "light" ? "purple.600" : "purple.200"}
+            color={colorMode === "light" ? "red.600" : "red.200"}
             mb={4}
           >
             Medical Quizzes have never been easier!

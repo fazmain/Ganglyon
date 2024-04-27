@@ -11,7 +11,7 @@ const MCQQuestion = ({ question, handleOptionChange, selectedOptions }) => {
               key={index}
               value={option}
               size="lg"
-              colorScheme="purple"
+              colorScheme="red"
               padding={2}
               borderWidth="1px"
               _hover={{ bg: "gray.50" }}

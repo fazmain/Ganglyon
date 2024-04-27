@@ -21,7 +21,7 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
     <Box
       maxW="md"
       borderWidth="1px"
-      borderColor={"purple.400"}
+      borderColor={"red.400"}
       borderRadius="lg"
       overflow="hidden"
       p={7}
@@ -37,7 +37,7 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
             <StatNumber fontSize="2xl">{`Correct: ${score}`}</StatNumber>
             <StatNumber fontSize="2xl">{`Wrong: ${wrong}`}</StatNumber>
             <StatNumber fontSize="2xl">{`Skipped: ${skip}`}</StatNumber>
-          
+
             <StatLabel fontSize="lg">
               You scored {score.toFixed(1)} out of {totalQuestions.toFixed(1)}
             </StatLabel>
@@ -45,16 +45,20 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
         ) : (
           <Stat>
             <StatLabel fontSize="lg">Quiz Completed!</StatLabel>
-            <StatLabel fontSize="lg">
+            <StatLabel fontSize="2xl">
               You scored {score.toFixed(1)} out of {totalQuestions.toFixed(1)}
             </StatLabel>
           </Stat>
         )}
         <VStack>
-          <Button mt={4} colorScheme="purple" onClick={handleTakeAnotherQuiz}>
+          <Button mt={4} colorScheme="gray" onClick={handleTakeAnotherQuiz}>
             Take another quiz
           </Button>
-          <Button onClick={() => window.location.reload()} colorScheme="red">
+          <Button
+            mt={2}
+            onClick={() => window.location.reload()}
+            colorScheme="red"
+          >
             Take quiz again!
           </Button>
         </VStack>

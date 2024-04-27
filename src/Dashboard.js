@@ -116,7 +116,7 @@ const Dashboard = ({ user }) => {
             </Grid>
             <Button
               onClick={() => navigate(`/quiz/${result.id}`)}
-              colorScheme="purple"
+              colorScheme="red"
               
             >
               Take quiz again!

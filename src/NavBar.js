@@ -48,13 +48,23 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
         mx="auto"
       >
         <Box>
-          <Link to="/">
-            <img
-              src={require("./assets/logo.png")}
-              alt="Logo"
-              width={"65rem"}
-            />
-          </Link>
+          {colorMode === "light" ? (
+            <Link href="/">
+              <img
+                src={require("./assets/logo.png")}
+                alt="Logo"
+                width={"65rem"}
+              />
+            </Link>
+          ) : (
+            <Link href="/">
+              <img
+                src={require("./assets/logo_dark.png")}
+                alt="Logo"
+                width={"65rem"}
+              />
+            </Link>
+          )}
         </Box>
         <IconButton
           ref={btnRef}
@@ -64,23 +74,28 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
           display={{ md: "none" }}
         />
         <Flex alignItems={"center"} display={{ base: "none", md: "flex" }}>
-          <Button
-            as={Link}
-            href="/"
-            mx={2}
-            variant="ghost"
-            colorScheme="purple"
-          >
-            Home
-          </Button>
-          <Button as={Link} href="/dashboard" mx={2} colorScheme="purple">
-            Dashboard
-          </Button>
+          <Link href="/">
+            <Button mx={2} variant="ghost" colorScheme="red">
+              Home
+            </Button>
+          </Link>
 
           {user ? (
-            <Button onClick={signOut} colorScheme="red" mx={2} variant="outline">
-              Sign Out
-            </Button>
+            <>
+              <Link href="/dashboard">
+                <Button mx={2} colorScheme="red">
+                  Dashboard
+                </Button>
+              </Link>
+              <Button
+                onClick={signOut}
+                colorScheme="gray"
+                mx={2}
+                variant="outline"
+              >
+                Sign Out
+              </Button>
+            </>
           ) : (
             <></>
           )}
@@ -104,13 +119,23 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
           <DrawerHeader>Welcome</DrawerHeader>
           <DrawerBody>
             <VStack spacing={4}>
-              <Button as={Link} href="/dashboard" w="100%" colorScheme="purple">
-                Dashboard
-              </Button>
-              {user ? (
-                <Button w="100%" onClick={signOut} colorScheme="red">
-                  Sign Out
+              <Link href="/">
+                <Button mx={2} variant="ghost" colorScheme="red">
+                  Home
                 </Button>
+              </Link>
+
+              {user ? (
+                <>
+                  <Button w="100%" onClick={signOut} colorScheme="gray">
+                    Sign Out
+                  </Button>
+                  <Link href="/dashboard" w="100%">
+                    <Button colorScheme="red" w="100%">
+                      Dashboard
+                    </Button>
+                  </Link>
+                </>
               ) : (
                 <></>
               )}

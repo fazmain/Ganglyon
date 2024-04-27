@@ -19,17 +19,18 @@ import ScoreDisplay from "./ScoreDisplay";
 import MCQQuestion from "./MCQQuestion";
 import TFQuestion from "./TFQuestion";
 
-
 const Quiz = ({ quizzes, user }) => {
   const { quizID } = useParams();
   let quiz = quizzes.find((q) => q.quizID === quizID);
 
   const [randomNumbers, setRandomNumbers] = useState(
-    Array.from({ length: 10 }, () => Math.floor(Math.random() * quiz.questions.length))
+    Array.from({ length: 10 }, () =>
+      Math.floor(Math.random() * quiz.questions.length)
+    )
   );
 
   console.log(randomNumbers);
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(300);
   const [timerActive, setTimerActive] = useState(true);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -75,8 +76,6 @@ const Quiz = ({ quizzes, user }) => {
       [optionKey]: value === "true",
     }));
   };
-
-  
 
   const handleAnswerSubmission = () => {
     const question = quiz.questions[randomNumbers[currentQuestionIndex]];
@@ -157,18 +156,22 @@ const Quiz = ({ quizzes, user }) => {
   const currentQuestion = quiz.questions[randomNumbers[currentQuestionIndex]];
   const isTF = quiz.quizType === "TF";
 
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
   return (
     <Container>
-      <Card>
+      <Card mt={5}>
         <VStack spacing={4}>
           <CardHeader>
             <Text fontSize={"2xl"} as="b">
               {currentQuestion.question}
             </Text>
-            <Tag colorScheme="purple" size={"md"}>
-              {" "}
-              {currentQuestion.questionUni}
-            </Tag>
+            {currentQuestion.questionUni && (
+              <Tag colorScheme="red" size={"md"}>
+                {currentQuestion.questionUni}
+              </Tag>
+            )}
           </CardHeader>
           <Divider />
           {isTF ? (
@@ -206,8 +209,8 @@ const Quiz = ({ quizzes, user }) => {
               : "Next Question"}
           </Button>
         </CardFooter>
-        <Text p={4} fontSize={"lg"} as="b" color={"purple.600"}>
-          Time Remaining: {timeLeft} seconds
+        <Text p={4} fontSize={"lg"} as="b" color={"red.600"}>
+          Time Remaining: {minutes} minutes {seconds} seconds
         </Text>
       </Card>
     </Container>

@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import {
   Spinner,
+  Image,
   Text,
   Box,
   ChakraProvider,
@@ -72,21 +73,12 @@ function App() {
   if (loading) {
     return (
       <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
       >
-        <Spinner
-          thickness="4px"
-          speed="0.65s"
-          emptyColor="gray.200"
-          color="blue.500"
-          size="xl"
-        />
-        <Text ml={3} size={"5xl"}>
-          Loading quizzes...
-        </Text>
+      <Image src={require("./assets/logo.png")} alt="Logo" boxSize="100" />
       </Box>
     );
   }

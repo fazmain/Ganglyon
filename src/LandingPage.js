@@ -19,10 +19,13 @@ import {
   CardFooter,
   ring,
   HStack,
+  Tag,
+  useColorMode,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const LandingPage = ({ quizzes, user }) => {
+  const { colorMode } = useColorMode();
   const [subjectFilter, setSubjectFilter] = useState("");
   const [chapterFilter, setChapterFilter] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
@@ -78,12 +81,7 @@ const LandingPage = ({ quizzes, user }) => {
 
   return (
     <Container maxW="container.xl" p={4} pt={6}>
-      <Box
-        mt={7}
-        p={8}
-        borderRadius="lg"
-        boxShadow="lg"
-      >
+      <Box mt={5} mb={7} p={8} borderRadius="lg" boxShadow="lg">
         <Box
           justify="space-between"
           mb={4}
@@ -92,7 +90,11 @@ const LandingPage = ({ quizzes, user }) => {
           borderColor="gray.200"
         >
           {user && (
-            <Text as="b" fontSize="4xl" color="purple.600">
+            <Text
+              as="b"
+              fontSize="4xl"
+              color={colorMode === "light" ? "red.500" : "red.400"}
+            >
               Welcome, {user.displayName || "User"}!
             </Text>
           )}
@@ -107,7 +109,7 @@ const LandingPage = ({ quizzes, user }) => {
               onChange={(e) => setSubjectFilter(e.target.value)}
               value={subjectFilter}
               variant={"filled"}
-              color="purple.700"
+              color={colorMode === "light" ? "red.600" : "red.400"}
             >
               {[...new Set(quizzes.map((quiz) => quiz.quizSubject))].map(
                 (subject) => (
@@ -124,7 +126,7 @@ const LandingPage = ({ quizzes, user }) => {
               onChange={(e) => setChapterFilter(e.target.value)}
               value={chapterFilter}
               variant={"filled"}
-              color="purple.700"
+              color={colorMode === "light" ? "red.600" : "red.400"}
             >
               {filteredChapters.map((chapter) => (
                 <option key={chapter} value={chapter}>
@@ -139,7 +141,7 @@ const LandingPage = ({ quizzes, user }) => {
               onChange={(e) => setTypeFilter(e.target.value)}
               value={typeFilter}
               variant={"filled"}
-              color="purple.700"
+              color={colorMode === "light" ? "red.600" : "red.400"}
             >
               {filteredTypes.map((type) => (
                 <option key={type} value={type}>
@@ -156,15 +158,24 @@ const LandingPage = ({ quizzes, user }) => {
             <GridItem key={quiz.quizID}>
               <Card maxW="sm" overflow="hidden" _hover={{ boxShadow: "lg" }}>
                 <CardHeader>
-                  <Text fontSize="lg" fontWeight="bold">
+                  <Text fontSize="2xl" fontWeight="bold">
                     {quiz.quizChapter}
                   </Text>
-                  <Text fontSize="md">
+                  <Tag sizeize="md" colorScheme="red">
                     {quiz.quizType === "TF" ? "MCQ" : "SBA"}
-                  </Text>
-                  <Text fontSize="md">
-                    10 Questions from {quiz.questions.length} total
-                  </Text>
+                  </Tag>
+                  <HStack>
+                    <Text fontSize="md" as={"b"}>
+                      Questions:
+                    </Text>
+                    <Text fontSize={"md"}>10</Text>
+                  </HStack>
+                  <HStack>
+                    <Text fontSize="md" as={"b"}>
+                      Time:
+                    </Text>
+                    <Text fontSize={"md"}>5 Minutes</Text>
+                  </HStack>
                 </CardHeader>
                 <CardBody>
                   <Link
@@ -172,7 +183,7 @@ const LandingPage = ({ quizzes, user }) => {
                     style={{ textDecoration: "none" }}
                   >
                     <Button
-                      colorScheme="purple"
+                      colorScheme="red"
                       width="50%"
                       size="md"
                       _hover={{
