@@ -20,20 +20,16 @@ import MCQQuestion from "./MCQQuestion";
 import TFQuestion from "./TFQuestion";
 
 
-
-
 const Quiz = ({ quizzes, user }) => {
   const { quizID } = useParams();
   let quiz = quizzes.find((q) => q.quizID === quizID);
 
-  // const getRandomQuestions = (questions, count) => {
-  //   const shuffledQuestions = questions.sort(() => Math.random() - 0.5);
-  //   return shuffledQuestions.slice(0, count);
-  // };
+  const [randomNumbers, setRandomNumbers] = useState(
+    Array.from({ length: 10 }, () => Math.floor(Math.random() * quiz.questions.length))
+  );
 
-  // const randomQuiz = getRandomQuestions(quiz.questions, 10);
-
-  const [timeLeft, setTimeLeft] = useState(120);
+  console.log(randomNumbers);
+  const [timeLeft, setTimeLeft] = useState(60);
   const [timerActive, setTimerActive] = useState(true);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -80,8 +76,10 @@ const Quiz = ({ quizzes, user }) => {
     }));
   };
 
+  
+
   const handleAnswerSubmission = () => {
-    const question = quiz.questions[currentQuestionIndex];
+    const question = quiz.questions[randomNumbers[currentQuestionIndex]];
     let points = 0;
 
     if (quiz.quizType === "TF") {
@@ -92,7 +90,7 @@ const Quiz = ({ quizzes, user }) => {
 
     setScore((prev) => prev + points);
 
-    if (currentQuestionIndex < quiz.questions.length - 1) {
+    if (currentQuestionIndex < randomNumbers.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setSelectedOptions({}); // Reset selection for the next question
     } else {
@@ -129,7 +127,7 @@ const Quiz = ({ quizzes, user }) => {
         quizRef,
         {
           scores: arrayUnion(score.toFixed(1)),
-          totalQuestions: quiz.questions.length,
+          totalQuestions: randomNumbers.length,
           quizInfo: quiz.quizSubject + " - " + quiz.quizChapter,
           lastAttemptScore: score.toFixed(1),
           attempts: increment(1),
@@ -156,7 +154,7 @@ const Quiz = ({ quizzes, user }) => {
     );
   }
 
-  const currentQuestion = quiz.questions[currentQuestionIndex];
+  const currentQuestion = quiz.questions[randomNumbers[currentQuestionIndex]];
   const isTF = quiz.quizType === "TF";
 
   return (
@@ -203,7 +201,7 @@ const Quiz = ({ quizzes, user }) => {
             onClick={handleAnswerSubmission}
             isDisabled={!selectedOptions}
           >
-            {currentQuestionIndex === quiz.questions.length - 1
+            {currentQuestionIndex === randomNumbers.length - 1
               ? "Finish Quiz"
               : "Next Question"}
           </Button>
