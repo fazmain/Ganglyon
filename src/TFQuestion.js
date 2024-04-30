@@ -19,7 +19,7 @@ const TFQuestion = ({ question, handleTFChange, selectedOptions }) => {
           <RadioGroup
             onChange={(value) => handleTFChange(key, value)}
             value={selectedOptions[key]?.toString()}
-            colorScheme="purple"
+            colorScheme="red"
           >
             <Stack direction="row">
               <Box border={"1px"} p={2} m={2} borderRadius={"md"}>

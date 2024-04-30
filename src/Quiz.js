@@ -85,7 +85,6 @@ const Quiz = ({ quizzes, user }) => {
     }));
   };
 
-
   const handleAnswerSubmission = () => {
     const question = quiz.questions[randomNumbers[currentQuestionIndex]];
     let points = 0;
@@ -168,7 +167,6 @@ const Quiz = ({ quizzes, user }) => {
             />
           </Box>
         ) : (
-          
           <Box>
             <TFReview
               quiz={quiz}
@@ -184,53 +182,54 @@ const Quiz = ({ quizzes, user }) => {
   const currentQuestion = quiz.questions[randomNumbers[currentQuestionIndex]];
   const isTF = quiz.quizType === "TF";
 
-  isTF ? userAnswers[currentQuestionIndex] = selectedOptions : void 0;
-
+  isTF ? (userAnswers[currentQuestionIndex] = selectedOptions) : void 0;
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
 
-
-
   return (
     <Container>
       <Card mt={5}>
-        <VStack spacing={4}>
-          <CardHeader>
-            <Text fontSize={"2xl"} as="b">
-              {currentQuestion.question}
-            </Text>
-            {currentQuestion.questionUni && (
-              <Tag colorScheme="red" size={"md"}>
-                {currentQuestion.questionUni}
-              </Tag>
-            )}
-          </CardHeader>
-          <Divider />
-          {isTF ? (
-            <>
-              <CardBody>
-                <TFQuestion
-                  key={`TF-${currentQuestionIndex}`} // Unique key that changes with each question
-                  question={currentQuestion}
-                  handleTFChange={handleTFChange}
-                  selectedOptions={selectedOptions}
-                />
-              </CardBody>
-            </>
-          ) : (
-            <>
-              <CardBody>
-                <MCQQuestion
-                  key={`MCQ-${currentQuestionIndex}`} // Unique key that changes with each question
-                  question={currentQuestion}
-                  handleOptionChange={handleOptionChange}
-                  selectedOptions={selectedOptions}
-                />
-              </CardBody>
-            </>
+        <CardHeader>
+          <Text fontSize={"xl"} as="b" color={"red.500"}>
+            Question {currentQuestionIndex + 1}
+          </Text>
+          <br />
+          <Text fontSize={"2xl"} as="b">
+            {currentQuestion.question}
+          </Text>
+          <br />
+          {currentQuestion.questionUni && (
+            <Tag colorScheme="red" size={"md"}>
+              {currentQuestion.questionUni}
+            </Tag>
           )}
-        </VStack>
+        </CardHeader>
+        <Divider />
+        {isTF ? (
+          <>
+            <CardBody>
+              <TFQuestion
+                key={`TF-${currentQuestionIndex}`} // Unique key that changes with each question
+                question={currentQuestion}
+                handleTFChange={handleTFChange}
+                selectedOptions={selectedOptions}
+              />
+            </CardBody>
+          </>
+        ) : (
+          <>
+            <CardBody>
+              <MCQQuestion
+                key={`MCQ-${currentQuestionIndex}`} // Unique key that changes with each question
+                question={currentQuestion}
+                handleOptionChange={handleOptionChange}
+                selectedOptions={selectedOptions}
+              />
+            </CardBody>
+          </>
+        )}
+
         <CardFooter>
           <Button
             mt={4}
@@ -242,7 +241,7 @@ const Quiz = ({ quizzes, user }) => {
               : "Next Question"}
           </Button>
         </CardFooter>
-        <Text p={4} fontSize={"lg"} as="b" color={"red.600"}>
+        <Text p={4} fontSize={"lg"} as="b" color={"red.500"}>
           Time Remaining: {minutes} minutes {seconds} seconds
         </Text>
       </Card>

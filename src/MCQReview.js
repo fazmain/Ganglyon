@@ -1,25 +1,37 @@
-import React from 'react';
-import { Box, Text, VStack } from "@chakra-ui/react";
+import React from "react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 
 const MCQReview = ({ quiz, randomNumbers, userAnswers }) => {
   return (
-    <VStack spacing={4} p={4}>
-      <Text fontSize="2xl" mb={4}>Review of Your MCQ Answers:</Text>
-      {randomNumbers.map((randomIndex, index) => {
-        const question = quiz.questions[randomIndex];
-        return (
-          <Box key={index} borderWidth="1px" borderRadius="lg" overflow="hidden" p={4}>
-            <Text fontWeight="bold">Question {index + 1}: {question.question}</Text>
-            <Text>
-              Your Answer: {userAnswers[index] === question.correct ? "Correct" : userAnswers[index]}
-              <br />
-              Correct Answer: {question.correct}
-            </Text>
-            <br />
-          </Box>
-        );
-      })}
-    </VStack>
+    <Box borderWidth="1px" borderRadius="lg" p={4} mt={6}>
+      <Stack spacing={4} p={4}>
+        <Text fontSize="2xl" mb={1} as="b">
+          Review of Your MCQ Answers
+        </Text>
+        {randomNumbers.map((randomIndex, index) => {
+          const question = quiz.questions[randomIndex];
+          console.log(userAnswers);
+          if (userAnswers[index] !== question.correct) {
+            return (
+              <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={4}>
+                <Text fontWeight="bold">
+                  Question {index + 1}: {question.question}
+                </Text>
+                <Text as="b" color={"red.500"}>
+                  Your Answer:{" "}
+                  {userAnswers[index] === null ? "Skipped" : userAnswers[index]}
+                </Text>
+                <br />
+                <Text as="b" color={"teal.500"}>
+                  Correct Answer: {question.correct}
+                </Text>
+                <Text>Solution: {question.solution}</Text>
+              </Box>
+            );
+          }
+        })}
+      </Stack>
+    </Box>
   );
 };
 

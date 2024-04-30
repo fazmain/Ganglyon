@@ -25,11 +25,8 @@ const Welcome = ({ signInWithGoogle }) => {
       bg={colorMode === "light" ? "white" : "gray.700"}
     >
       <HStack spacing={200}>
-        <Box pl={"7%"}>
-          <Heading
-            color={colorMode === "light" ? "red.600" : "red.200"}
-            mb={4}
-          >
+        <Box pl={"3"}>
+          <Heading color={colorMode === "light" ? "red.600" : "red.300"} mb={4}>
             Medical Quizzes have never been easier!
           </Heading>
           <Text fontSize="xl" mb={4}>
@@ -45,7 +42,13 @@ const Welcome = ({ signInWithGoogle }) => {
           </Button>
         </Box>
         <Box>
-          <Image src={home} alt="Home" boxSize="70%" objectFit="contain" />
+          <Image
+            pr={10}
+            src={home}
+            alt="Home"
+            objectFit="contain"
+            height={"100%"}
+          />
         </Box>
       </HStack>
     </Box>

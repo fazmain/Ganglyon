@@ -499,7 +499,8 @@
             "Deltoid, biceps, and latissimus dorsi",
             "Rectus abdominis, transverse abdominis, and obliques"
           ],
-          "correct": "Sternocleidomastoid, anterior serrati, and scaleni"
+          "correct": "Sternocleidomastoid, anterior serrati, and scaleni",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0002",
@@ -511,7 +512,8 @@
             "Pectoralis major and latissimus dorsi",
             "Sternocleidomastoid and scalene"
           ],
-          "correct": "Abdominal recti and internal intercostals"
+          "correct": "Abdominal recti and internal intercostals",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0003",
@@ -523,7 +525,8 @@
             "Pressure inside the alveoli",
             "Pressure on the outer surfaces of the lungs"
           ],
-          "correct": "Pressure difference between alveoli and pleural space"
+          "correct": "Pressure difference between alveoli and pleural space",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0004",
@@ -535,7 +538,8 @@
             "Elasticity of lung tissue",
             "Surface tension in the alveoli"
           ],
-          "correct": "Ability of lungs to expand with increase in transpulmonary pressure"
+          "correct": "Ability of lungs to expand with increase in transpulmonary pressure",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0005",
@@ -547,14 +551,16 @@
             "Calcium ions",
             "Hemoglobin"
           ],
-          "correct": "Hemoglobin"
+          "correct": "Hemoglobin",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0006",
           "questionUni": null,
           "question": "What percentage of total blood volume is in the pulmonary circulation?",
           "options": ["5%", "9%", "15%", "25%"],
-          "correct": "9%"
+          "correct": "9%",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0007",
@@ -566,7 +572,8 @@
             "Right and left lungs",
             "Diaphragm and intercostal muscles"
           ],
-          "correct": "Bronchioles, alveolar ducts, atria, alveoli"
+          "correct": "Bronchioles, alveolar ducts, atria, alveoli",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0008",
@@ -578,14 +585,16 @@
             "Gas diffusion coefficient",
             "Atmospheric pressure"
           ],
-          "correct": "Atmospheric pressure"
+          "correct": "Atmospheric pressure",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0009",
           "questionUni": null,
           "question": "What percentage of blood entering the left atrium has NOT passed through alveolar capillaries?",
           "options": ["2%", "5%", "10%", "20%"],
-          "correct": "2%"
+          "correct": "2%",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0010",
@@ -597,7 +606,8 @@
             "Pneumotaxic center",
             "Apneustic center"
           ],
-          "correct": "Pneumotaxic center"
+          "correct": "Pneumotaxic center",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0011",
@@ -609,7 +619,8 @@
             "Continuously at a constant rate",
             "In a pulsatile manner"
           ],
-          "correct": "As a ramp increasing over 2 seconds"
+          "correct": "As a ramp increasing over 2 seconds",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0012",
@@ -621,7 +632,8 @@
             "Maintain proper concentrations of O2, CO2 and H+ in tissues",
             "Ventilate the lungs"
           ],
-          "correct": "Maintain proper concentrations of O2, CO2 and H+ in tissues"
+          "correct": "Maintain proper concentrations of O2, CO2 and H+ in tissues",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0013",
@@ -633,7 +645,8 @@
             "Morphine",
             "Nitrous oxide"
           ],
-          "correct": "Sodium pentobarbital"
+          "correct": "Sodium pentobarbital",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0014",
@@ -645,14 +658,16 @@
             "Insomnia",
             "Narcolepsy"
           ],
-          "correct": "Inability to breathe during sleep"
+          "correct": "Inability to breathe during sleep",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0015",
           "questionUni": null,
           "question": "What is the classic cause of inability of tissues to use O2?",
           "options": ["Cyanide poisoning", "Anemia", "Asthma", "Pneumonia"],
-          "correct": "Cyanide poisoning"
+          "correct": "Cyanide poisoning",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0016",
@@ -664,7 +679,8 @@
             "When > 5g deoxyhemoglobin/100 mL blood",
             "When CO2 levels are high"
           ],
-          "correct": "When > 5g deoxyhemoglobin/100 mL blood"
+          "correct": "When > 5g deoxyhemoglobin/100 mL blood",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0017",
@@ -676,7 +692,8 @@
             "Spirometry",
             "Exercise stress test"
           ],
-          "correct": "Blood pH, pCO2, pO2"
+          "correct": "Blood pH, pCO2, pO2",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0018",
@@ -688,7 +705,8 @@
             "Deeper breathing to compensate for low O2",
             "Use of supplemental oxygen"
           ],
-          "correct": "Deeper breathing to compensate for low O2"
+          "correct": "Deeper breathing to compensate for low O2",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0019",
@@ -700,7 +718,8 @@
             "In the aortic arch",
             "In the lungs"
           ],
-          "correct": "In the carotid arteries"
+          "correct": "In the carotid arteries",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "0020",
@@ -712,7 +731,8 @@
             "Blood pressure",
             "Body temperature"
           ],
-          "correct": "CO2 and H+ ions"
+          "correct": "CO2 and H+ ions",
+          "solution": "Check your book for explanation!"
         }
       ]
     },
@@ -732,7 +752,8 @@
             "Oxidation of glucogenic amino acid",
             "Degradation of ketone bodies"
           ],
-          "correct": "Oxidation of glucogenic amino acid"
+          "correct": "Oxidation of glucogenic amino acid",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "Q002",
@@ -744,7 +765,8 @@
             "Lipogenesis",
             "Glycogenolysis"
           ],
-          "correct": "Glycogenolysis"
+          "correct": "Glycogenolysis",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "Q003",
@@ -756,7 +778,8 @@
             "It occurs in the mitochondria",
             "It produces 8 ATP in aerobic conditions"
           ],
-          "correct": "It occurs in the mitochondria"
+          "correct": "It occurs in the mitochondria",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "Q004",
@@ -768,14 +791,16 @@
             "Beta hydroxybutyrate",
             "Acetone"
           ],
-          "correct": "Acetic acid"
+          "correct": "Acetic acid",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "Q005",
           "questionUni": null,
           "question": "Which molecule is not a hydrogen carrier?",
           "options": ["NAD", "FAD", "Cytochrome oxidase", "Coenzyme"],
-          "correct": "Cytochrome oxidase"
+          "correct": "Cytochrome oxidase",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "Q006",
@@ -787,7 +812,8 @@
             "Antioxidant activity in RBCs",
             "Superoxide and free radical production in phagocytes"
           ],
-          "correct": "Reductive synthesis of nucleotides"
+          "correct": "Reductive synthesis of nucleotides",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "Q007",
@@ -799,14 +825,16 @@
             "Starvation",
             "Pregnancy"
           ],
-          "correct": "Pregnancy"
+          "correct": "Pregnancy",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "Q008",
           "questionUni": null,
           "question": "Which amino acid does not undergo transamination?",
           "options": ["Glutamate", "Aspartate", "Alanine", "Lysine"],
-          "correct": "Lysine"
+          "correct": "Lysine",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "Q009",
@@ -818,7 +846,8 @@
             "Suppression of hormone-sensitive lipase",
             "Excess free fatty acid"
           ],
-          "correct": "Suppression of hormone-sensitive lipase"
+          "correct": "Suppression of hormone-sensitive lipase",
+          "solution": "Check your book for explanation!"
         },
         {
           "questionID": "Q010",
@@ -830,7 +859,8 @@
             "Thromboxane A2",
             "Leukotriene"
           ],
-          "correct": "Leukotriene"
+          "correct": "Leukotriene",
+          "solution": "Check your book for explanation!"
         }
       ]
     }
