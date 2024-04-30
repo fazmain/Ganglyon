@@ -18,18 +18,24 @@ import { db } from "./firebase-config";
 import ScoreDisplay from "./ScoreDisplay";
 import MCQQuestion from "./MCQQuestion";
 import TFQuestion from "./TFQuestion";
+import TFReview from "./TFReview";
+import MCQReview from "./MCQReview";
 
 const Quiz = ({ quizzes, user }) => {
   const { quizID } = useParams();
   let quiz = quizzes.find((q) => q.quizID === quizID);
 
-  const [randomNumbers, setRandomNumbers] = useState(
-    Array.from({ length: 10 }, () =>
-      Math.floor(Math.random() * quiz.questions.length)
-    )
-  );
+  const [randomNumbers, setRandomNumbers] = useState(() => {
+    const numbers = [];
+    while (numbers.length < 10) {
+      const randomNumber = Math.floor(Math.random() * quiz.questions.length);
+      if (!numbers.includes(randomNumber)) {
+        numbers.push(randomNumber);
+      }
+    }
+    return numbers;
+  });
 
-  console.log(randomNumbers);
   const [timeLeft, setTimeLeft] = useState(300);
   const [timerActive, setTimerActive] = useState(true);
 
@@ -39,6 +45,7 @@ const Quiz = ({ quizzes, user }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const [skip, setSkip] = useState(0);
+  const [userAnswers, setUserAnswers] = useState({});
 
   useEffect(() => {
     let interval = null;
@@ -68,6 +75,7 @@ const Quiz = ({ quizzes, user }) => {
 
   const handleOptionChange = (value) => {
     setSelectedOptions(value);
+    userAnswers[currentQuestionIndex] = value;
   };
 
   const handleTFChange = (optionKey, value) => {
@@ -76,6 +84,7 @@ const Quiz = ({ quizzes, user }) => {
       [optionKey]: value === "true",
     }));
   };
+
 
   const handleAnswerSubmission = () => {
     const question = quiz.questions[randomNumbers[currentQuestionIndex]];
@@ -140,24 +149,48 @@ const Quiz = ({ quizzes, user }) => {
 
   if (showScore || timeLeft === 0) {
     return (
-      <Box>
-        <ScoreDisplay
-          score={score}
-          totalQuestions={quiz.questions.length}
-          wrong={wrongAnswers}
-          skip={skip}
-          quiz={quiz}
-        />
-        {/* {timeLeft === 0 && (<Box><Text>You ran out of time!</Text></Box>)} */}
-      </Box>
+      <>
+        <Box>
+          <ScoreDisplay
+            score={score}
+            totalQuestions={randomNumbers.length}
+            wrong={wrongAnswers}
+            skip={skip}
+            quiz={quiz}
+          />
+        </Box>
+        {quiz.quizType === "MCQ" ? (
+          <Box>
+            <MCQReview
+              quiz={quiz}
+              randomNumbers={randomNumbers}
+              userAnswers={userAnswers}
+            />
+          </Box>
+        ) : (
+          
+          <Box>
+            <TFReview
+              quiz={quiz}
+              randomNumbers={randomNumbers}
+              userAnswers={userAnswers}
+            />
+          </Box>
+        )}
+      </>
     );
   }
 
   const currentQuestion = quiz.questions[randomNumbers[currentQuestionIndex]];
   const isTF = quiz.quizType === "TF";
 
+  isTF ? userAnswers[currentQuestionIndex] = selectedOptions : void 0;
+
+
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;
+
+
 
   return (
     <Container>

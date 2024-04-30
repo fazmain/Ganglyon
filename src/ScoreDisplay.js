@@ -46,21 +46,21 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
           <Stat>
             <StatLabel fontSize="lg">Quiz Completed!</StatLabel>
             <StatLabel fontSize="2xl">
-              You scored {score.toFixed(1)} out of {totalQuestions.toFixed(1)}
+              You scored {score.toFixed(1)} out of 10
             </StatLabel>
           </Stat>
         )}
         <VStack>
-          <Button mt={4} colorScheme="gray" onClick={handleTakeAnotherQuiz}>
+          <Button mt={4} colorScheme="red" onClick={handleTakeAnotherQuiz}>
             Take another quiz
           </Button>
-          <Button
+          {/* <Button
             mt={2}
             onClick={() => window.location.reload()}
             colorScheme="red"
           >
             Take quiz again!
-          </Button>
+          </Button> */}
         </VStack>
       </Box>
     </Box>
