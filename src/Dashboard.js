@@ -66,7 +66,7 @@ const Dashboard = ({ user }) => {
   if (!quizResults.length) {
     return (
       <Container centerContent>
-        <Heading>No Results Found</Heading>
+        <Heading color="red.500" p={10}>No Quizzes Still Taken</Heading>
       </Container>
     );
   }

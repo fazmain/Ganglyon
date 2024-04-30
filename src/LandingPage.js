@@ -23,8 +23,10 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useUser } from './contexts/UserContext';
 
-const LandingPage = ({ quizzes, user }) => {
+const LandingPage = ({ quizzes }) => {
+  const user = useUser();
   const { colorMode } = useColorMode();
   const [subjectFilter, setSubjectFilter] = useState("");
   const [chapterFilter, setChapterFilter] = useState("");

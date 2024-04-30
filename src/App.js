@@ -1,55 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { auth } from "./firebase-config";
 import { getDatabase, ref, onValue } from "firebase/database";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut as firebaseSignOut,
-  onAuthStateChanged,
-} from "firebase/auth";
-import {
-  Spinner,
-  Image,
-  Text,
-  Box,
-  ChakraProvider,
-  Container,
-} from "@chakra-ui/react";
+import { onAuthStateChanged } from "firebase/auth";
+import { Box, ChakraProvider, Container } from "@chakra-ui/react";
 import Quiz from "./Quiz";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
 import Navbar from "./NavBar";
-//import quizzes from "./quizData";
+import Welcome from "./Welcome";
+import SignUp from "./SignUp";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-import Welcome from "./Welcome";
+import { UserProvider } from "./contexts/UserContext";
 
 function App() {
   const [user, setUser] = useState(null);
   const [quizzes, setQuizzes] = useState([]);
-  const [loading, setLoading] = useState(true); // State to track loading
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const quizdb = getDatabase();
-    const quizRef = ref(quizdb, "quizzes");
-
-    onValue(
-      quizRef,
-      (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          setQuizzes(data);
-        }
-        setLoading(false);
-      },
-      {
-        onlyOnce: true,
-      }
-    );
+    const db = getDatabase();
+    const quizzesRef = ref(db, "quizzes");
+    onValue(quizzesRef, (snapshot) => {
+      const data = snapshot.val();
+      setQuizzes(Object.values(data || {}));
+      setLoading(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -59,38 +39,14 @@ function App() {
     return () => unsubscribe();
   }, []);
 
-  const signInWithGoogle = () => {
-    const googleAuthProvider = new GoogleAuthProvider();
-    signInWithPopup(auth, googleAuthProvider).catch((error) =>
-      alert(error.message)
-    );
-  };
-
-  const signOut = () => {
-    firebaseSignOut(auth);
-  };
-
-  if (loading) {
-    return (
-      <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      height="100vh"
-      >
-      <Image src={require("./assets/logo.png")} alt="Logo" boxSize="100" />
-      </Box>
-    );
-  }
-
   return (
     <ChakraProvider>
-      <Router>
-        <Container maxW="container.xl" p={4} pt={6}>
-          <Navbar user={user} auth={auth} signInWithGoogle={signInWithGoogle} />
-          <Box>
-            {user ? (
-              <>
+      <UserProvider>
+        <Router>
+          <Container maxW="container.xl" p={4} pt={6}>
+            <Navbar user={user} auth={auth} />
+            <Box>
+              {user ? (
                 <Routes>
                   <Route
                     path="/"
@@ -98,7 +54,7 @@ function App() {
                   />
                   <Route
                     path="/landing"
-                    element={<LandingPage user={user} quizzes={quizzes} />}
+                    element={<LandingPage quizzes={quizzes} />}
                   />
                   <Route
                     path="/quiz/:quizID"
@@ -109,13 +65,15 @@ function App() {
                     element={<Dashboard user={user} />}
                   />
                 </Routes>
-              </>
-            ) : (
-              <Welcome signInWithGoogle={signInWithGoogle} />
-            )}
-          </Box>
-        </Container>
-      </Router>
+              ) : (
+                <>
+                  <Welcome />
+                </>
+              )}
+            </Box>
+          </Container>
+        </Router>
+      </UserProvider>
     </ChakraProvider>
   );
 }
