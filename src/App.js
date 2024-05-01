@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { auth } from "./firebase-config";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
-import { Box, ChakraProvider, Container } from "@chakra-ui/react";
+import { Box, ChakraProvider, Container, HStack, Text } from "@chakra-ui/react";
 import Quiz from "./Quiz";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
 import Navbar from "./NavBar";
 import Welcome from "./Welcome";
 import SignUp from "./SignUp";
+import Banner from "./Banner";
+import DemoWelcome from "./DemoWelcome";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -41,6 +44,7 @@ function App() {
 
   return (
     <ChakraProvider>
+      <Banner text="This app is under development and may contain bugs, errors, or outdated information." />
       <UserProvider>
         <Router>
           <Container maxW="container.xl" p={4} pt={6}>
@@ -50,12 +54,13 @@ function App() {
                 <Routes>
                   <Route
                     path="/"
-                    element={<Navigate replace to="/landing" />}
+                    element={<DemoWelcome/>}
                   />
                   <Route
                     path="/landing"
                     element={<LandingPage quizzes={quizzes} />}
                   />
+
                   <Route
                     path="/quiz/:quizID"
                     element={<Quiz quizzes={quizzes} user={user} />}

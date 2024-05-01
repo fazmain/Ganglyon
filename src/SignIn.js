@@ -14,35 +14,27 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { updateProfile } from "firebase/auth";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
 
-  const handleSignUp = async () => {
+  const handleSignIn = async () => {
     setIsLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      await updateProfile(userCredential.user, {
-        displayName: name,
-      });
+      await signInWithEmailAndPassword(auth, email, password);
       toast({
-        title: "Account created successfully",
-        description: "Welcome, " + name,
+        title: "Signed in successfully",
         status: "success",
         duration: 5000,
         isClosable: true,
       });
     } catch (error) {
       toast({
-        title: "Error creating account",
+        title: "Failed to sign in",
         description: error.message,
         status: "error",
         duration: 5000,
@@ -54,14 +46,6 @@ function SignUp() {
 
   return (
     <Box maxW="md" p="8" borderWidth="1px" borderRadius="lg">
-      <FormControl isRequired>
-        <FormLabel>Name</FormLabel>
-        <Input
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </FormControl>
       <FormControl mt="4" isRequired>
         <FormLabel>Email</FormLabel>
         <Input
@@ -81,14 +65,12 @@ function SignUp() {
       </FormControl>
       <Button
         colorScheme="red"
-        variant="outline"
         mt="4"
-        onClick={handleSignUp}
+        onClick={handleSignIn}
         isLoading={isLoading}
       >
-        Sign Up
-      </Button>
-      
+        Sign In
+      </Button>  
     </Box>
   );
 }

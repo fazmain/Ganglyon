@@ -23,7 +23,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useUser } from './contexts/UserContext';
+import { useUser } from "./contexts/UserContext";
 
 const LandingPage = ({ quizzes }) => {
   const user = useUser();
@@ -153,12 +153,14 @@ const LandingPage = ({ quizzes }) => {
             </Select>
           </WrapItem>
         </Wrap>
-        <Divider my={4} />
+      </Box>
+      <Divider my={4} />
 
-        <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4}>
+      <Box>
+        <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4} width={"100%"}>
           {filteredQuizzes.map((quiz) => (
             <GridItem key={quiz.quizID}>
-              <Card maxW="sm" overflow="hidden" _hover={{ boxShadow: "lg" }}>
+              <Card maxW="sm" _hover={{ boxShadow: "lg" }} mx="auto">
                 <CardHeader>
                   <Text fontSize="2xl" fontWeight="bold">
                     {quiz.quizChapter}
@@ -203,6 +205,7 @@ const LandingPage = ({ quizzes }) => {
         </Grid>
       </Box>
     </Container>
+
   );
 };
 

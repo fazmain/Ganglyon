@@ -8,15 +8,22 @@ import {
   useColorMode,
   useBreakpointValue,
   Flex,
+  Button,
 } from "@chakra-ui/react";
 import home from "./assets/home.png";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
+import { Link } from "react-router-dom";
+import { useUser } from "./contexts/UserContext";
+
 // import { FcGoogle } from "react-icons/fc";
 
-const Welcome = () => {
+const DemoWelcome = () => {
   const { colorMode } = useColorMode();
   const isDesktop = useBreakpointValue({ base: false, lg: true });
+  const user = useUser();
+
+  const refresh = () => {window.location.reload()};
 
   return (
     <>
@@ -38,15 +45,17 @@ const Welcome = () => {
           <Heading color={colorMode === "light" ? "red.600" : "red.300"}>
             Medical Quizzes have never been easier!
           </Heading>
-          <Text fontSize="xl" as="b">Sign in to take your first quiz.</Text>
+          <Text fontSize="xl" as="b">
+            Welcome, {user ? user.displayName : "User"}!
+          </Text>
           {/* Depreciated google login */}
           {/* <Button onClick={signInWithGoogle} maxW={"md"} variant={"outline"} leftIcon={<FcGoogle />} size="sm" py={2} px={4} >
           Sign in with Google
         </Button> */}
-          <SignIn />
-          <Box mt={4}>
-            <Text as="b" fontSize="xl" >Don't have an account?</Text>
-            <SignUp />
+          <Box>
+            <Button colorScheme="red" variant={"outline"} onClick={refresh}>
+              <Link to="/landing">Go to all quizzes.</Link>
+            </Button>
           </Box>
         </Stack>
         {isDesktop && (
@@ -63,4 +72,4 @@ const Welcome = () => {
   );
 };
 
-export default Welcome;
+export default DemoWelcome;
