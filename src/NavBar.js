@@ -27,6 +27,7 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
   const signOut = async () => {
     try {
       await auth.signOut();
+      window.location.href = "/"; 
     } catch (error) {
       console.error("Error signing out", error);
     }

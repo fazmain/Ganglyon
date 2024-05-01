@@ -11,7 +11,7 @@ import {
   FormLabel,
   Input,
   useToast,
-  Spinner,
+  Text,
 } from "@chakra-ui/react";
 import { updateProfile } from "firebase/auth";
 import { Link } from "react-router-dom";
@@ -46,6 +46,9 @@ function SignUp() {
 
   return (
     <Box maxW="md" p="8" borderWidth="1px" borderRadius="lg">
+      <Text fontSize="xl" as="b">
+          Sign in
+        </Text>
       <FormControl mt="4" isRequired>
         <FormLabel>Email</FormLabel>
         <Input

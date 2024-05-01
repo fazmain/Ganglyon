@@ -2,22 +2,16 @@ import React, { useEffect, useState } from "react";
 import { auth } from "./firebase-config";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
-import { Box, ChakraProvider, Container, HStack, Text } from "@chakra-ui/react";
+import { Box, ChakraProvider, Container, Image } from "@chakra-ui/react";
 import Quiz from "./Quiz";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
 import Navbar from "./NavBar";
 import Welcome from "./Welcome";
-import SignUp from "./SignUp";
 import Banner from "./Banner";
 import DemoWelcome from "./DemoWelcome";
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
 
 function App() {
@@ -25,14 +19,23 @@ function App() {
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const db = getDatabase();
-    const quizzesRef = ref(db, "quizzes");
-    onValue(quizzesRef, (snapshot) => {
-      const data = snapshot.val();
-      setQuizzes(Object.values(data || {}));
-      setLoading(false);
-    });
+  useEffect((user) => {
+    const quizdb = getDatabase();
+    const quizRef = ref(quizdb, "quizzes");
+
+    onValue(
+      quizRef,
+      (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          setQuizzes(data);
+        }
+        setLoading(false);
+      },
+      {
+        onlyOnce: true,
+      }
+    );
   }, []);
 
   useEffect(() => {
@@ -42,20 +45,31 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  // if (loading) {
+  //   return (
+  //     <Box
+  //       display="flex"
+  //       justifyContent="center"
+  //       alignItems="center"
+  //       height="100vh"
+  //     >
+  //       <Image src={require("./assets/logo.png")} alt="Logo" boxSize="100" />
+  //     </Box>
+  //   );
+  // }
+
   return (
-    <ChakraProvider>
-      <Banner text="This app is under development and may contain bugs, errors, or outdated information." />
-      <UserProvider>
+    <UserProvider>
+      <ChakraProvider>
+        <Banner text="This app is under development and may contain bugs, errors, or outdated information." />
+
         <Router>
           <Container maxW="container.xl" p={4} pt={6}>
             <Navbar user={user} auth={auth} />
             <Box>
               {user ? (
                 <Routes>
-                  <Route
-                    path="/"
-                    element={<DemoWelcome/>}
-                  />
+                  <Route path="/" element={<DemoWelcome />} />
                   <Route
                     path="/landing"
                     element={<LandingPage quizzes={quizzes} />}
@@ -78,8 +92,8 @@ function App() {
             </Box>
           </Container>
         </Router>
-      </UserProvider>
-    </ChakraProvider>
+      </ChakraProvider>
+    </UserProvider>
   );
 }
 

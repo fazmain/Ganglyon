@@ -11,7 +11,7 @@ import {
   FormLabel,
   Input,
   useToast,
-  Spinner,
+  Text,
 } from "@chakra-ui/react";
 import { updateProfile } from "firebase/auth";
 
@@ -53,8 +53,15 @@ function SignUp() {
   };
 
   return (
-    <Box maxW="md" p="8" borderWidth="1px" borderRadius="lg">
-      <FormControl isRequired>
+    <Box maxW="md" my={7} p="8" borderWidth="1px" borderRadius="lg" boxShadow={"lg"}>
+      <Text as="b" fontSize="lg" color={"red.500"}>
+        Don't have an account?
+      </Text>
+      <br />
+      <Text fontSize="xl" as="b">
+          Sign Up
+        </Text>
+      <FormControl isRequired mt={4}>
         <FormLabel>Name</FormLabel>
         <Input
           placeholder="Enter your name"

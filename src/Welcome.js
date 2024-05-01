@@ -8,6 +8,7 @@ import {
   useColorMode,
   useBreakpointValue,
   Flex,
+  HStack,
 } from "@chakra-ui/react";
 import home from "./assets/home.png";
 import SignUp from "./SignUp";
@@ -16,8 +17,7 @@ import SignIn from "./SignIn";
 
 const Welcome = () => {
   const { colorMode } = useColorMode();
-  const isDesktop = useBreakpointValue({ base: false, lg: true });
-
+  const isDesktop = useBreakpointValue({ sm: false, lg: true });
   return (
     <>
       <Flex
@@ -25,40 +25,34 @@ const Welcome = () => {
         align="center"
         justify="center"
         mt={7}
-        p={8}
+        p={5}
         borderRadius="lg"
         boxShadow="lg"
         bg={colorMode === "light" ? "white" : "gray.700"}
       >
-        <Stack
-          spacing={4}
-          alignItems={{ base: "center", lg: "flex-start" }}
-          mb={{ base: 6, lg: 0 }}
-        >
-          <Heading color={colorMode === "light" ? "red.600" : "red.300"}>
-            Medical Quizzes have never been easier!
-          </Heading>
-          <Text fontSize="xl" as="b">Sign in to take your first quiz.</Text>
-          {/* Depreciated google login */}
-          {/* <Button onClick={signInWithGoogle} maxW={"md"} variant={"outline"} leftIcon={<FcGoogle />} size="sm" py={2} px={4} >
+        <Image src={home} alt="Home" objectFit="contain" height="50vh" ml={8} />
+        <Box p={2} mx={"auto"}>
+          <Stack spacing={6}>
+            <Heading color={colorMode === "light" ? "red.600" : "red.300"}>
+              Medical Quizzes have never been easier!
+            </Heading>
+            <Text
+              fontSize={"xl"}
+              color={colorMode === "light" ? "gray.600" : "gray.200"}
+            >
+              Login on Sign up to take a quiz.{" "}
+            </Text>
+            {/* Depreciated google login */}
+            {/* <Button onClick={signInWithGoogle} maxW={"md"} variant={"outline"} leftIcon={<FcGoogle />} size="sm" py={2} px={4} >
           Sign in with Google
         </Button> */}
-          <SignIn />
-          <Box mt={4}>
-            <Text as="b" fontSize="xl" >Don't have an account?</Text>
-            <SignUp />
-          </Box>
-        </Stack>
-        {isDesktop && (
-          <Image
-            src={home}
-            alt="Home"
-            objectFit="contain"
-            height="400px"
-            ml={8}
-          />
-        )}
+
+            <SignIn />
+          </Stack>
+        </Box>
       </Flex>
+
+      <SignUp />
     </>
   );
 };
