@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { auth } from "./firebase-config";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
-import { Box, ChakraProvider, Container, Image } from "@chakra-ui/react";
+import { Box, ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
 import Quiz from "./Quiz";
 import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
@@ -10,9 +10,18 @@ import Navbar from "./NavBar";
 import Welcome from "./Welcome";
 import Banner from "./Banner";
 import DemoWelcome from "./DemoWelcome";
+import '@fontsource/roboto'
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
+
+
+const theme = extendTheme({
+  fonts: {
+    heading: `roboto`,
+    body: `roboto`,
+  },
+})
 
 function App() {
   const [user, setUser] = useState(null);
@@ -60,7 +69,7 @@ function App() {
 
   return (
     <UserProvider>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <Banner text="This app is under development and may contain bugs, errors, or outdated information." />
 
         <Router>

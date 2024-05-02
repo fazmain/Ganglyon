@@ -53,17 +53,24 @@ function SignUp() {
   };
 
   return (
-    <Box maxW="md" my={7} p="8" borderWidth="1px" borderRadius="lg" boxShadow={"lg"}>
+    <Box
+      my={7}
+      p="8"
+      borderWidth="1px"
+      borderRadius="lg"
+      boxShadow={"lg"}
+    >
       <Text as="b" fontSize="lg" color={"red.500"}>
         Don't have an account?
       </Text>
       <br />
       <Text fontSize="xl" as="b">
-          Sign Up
-        </Text>
+        Sign Up
+      </Text>
       <FormControl isRequired mt={4}>
         <FormLabel>Name</FormLabel>
         <Input
+          borderColor={"red.200"}
           placeholder="Enter your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -72,6 +79,7 @@ function SignUp() {
       <FormControl mt="4" isRequired>
         <FormLabel>Email</FormLabel>
         <Input
+          borderColor={"red.200"}
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -80,6 +88,7 @@ function SignUp() {
       <FormControl mt="4" isRequired>
         <FormLabel>Password</FormLabel>
         <Input
+          borderColor={"red.200"}
           placeholder="Enter your password"
           type="password"
           value={password}
@@ -95,7 +104,6 @@ function SignUp() {
       >
         Sign Up
       </Button>
-      
     </Box>
   );
 }

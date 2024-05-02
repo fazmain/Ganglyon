@@ -51,7 +51,6 @@ const Welcome = () => {
           </Stack>
         </Box>
       </Flex>
-
       <SignUp />
     </>
   );

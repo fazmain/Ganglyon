@@ -45,7 +45,7 @@ function SignUp() {
   };
 
   return (
-    <Box maxW="md" p="8" borderWidth="1px" borderRadius="lg">
+    <Box p="8" borderWidth="1px" borderRadius="lg">
       <Text fontSize="xl" as="b">
           Sign in
         </Text>
