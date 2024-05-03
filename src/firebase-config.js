@@ -2,6 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { getFirestore } from "firebase/firestore";
+import { getPerformance } from "firebase/performance";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBMMzxk6Gqs1Y0ELk2mb76fzIOHTgszUaA",
@@ -23,3 +25,5 @@ const db = getFirestore(app);
 const quizdb = getDatabase(app);
 
 export { auth, app, db, quizdb };
+
+const perf = getPerformance(app);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import {
   Box,
   Button,
@@ -209,4 +209,4 @@ const LandingPage = ({ quizzes }) => {
   );
 };
 
-export default LandingPage;
+export default memo(LandingPage);
