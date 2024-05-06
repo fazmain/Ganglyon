@@ -33,7 +33,6 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
         {quiz.quizType === "MCQ" ? (
           <Stat>
             <StatLabel fontSize="lg">Quiz Completed!</StatLabel>
-
             <StatNumber fontSize="2xl">{`Correct: ${score}`}</StatNumber>
             <StatNumber fontSize="2xl">{`Wrong: ${wrong}`}</StatNumber>
             <StatNumber fontSize="2xl">{`Skipped: ${skip}`}</StatNumber>

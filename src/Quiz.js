@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import {
   Box,
   Button,
@@ -24,10 +24,14 @@ import MCQReview from "./MCQReview";
 const Quiz = ({ quizzes, user }) => {
   const { quizID } = useParams();
   let quiz = quizzes.find((q) => q.quizID === quizID);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const numberOfQuizzes = parseInt(queryParams.get('count'));
+
 
   const [randomNumbers, setRandomNumbers] = useState(() => {
     const numbers = [];
-    while (numbers.length < 10) {
+    while (numbers.length < numberOfQuizzes) {
       const randomNumber = Math.floor(Math.random() * quiz.questions.length);
       if (!numbers.includes(randomNumber)) {
         numbers.push(randomNumber);
@@ -36,7 +40,7 @@ const Quiz = ({ quizzes, user }) => {
     return numbers;
   });
 
-  const [timeLeft, setTimeLeft] = useState(300);
+  const [timeLeft, setTimeLeft] = useState(numberOfQuizzes * 20);
   const [timerActive, setTimerActive] = useState(true);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -129,6 +133,9 @@ const Quiz = ({ quizzes, user }) => {
 
   const saveQuizResult = async () => {
     const quizRef = doc(db, "users", user.uid, "quizzes", quiz.quizID);
+    const userRef = doc(db, "users", user.uid);
+    const today = new Date().toISOString().slice(0, 10); // Get today's date in YYYY-MM-DD format
+  
     try {
       await setDoc(
         quizRef,
@@ -141,10 +148,22 @@ const Quiz = ({ quizzes, user }) => {
         },
         { merge: true }
       );
+  
+      // Update daily attempts, creating or incrementing the field for today
+      await setDoc(
+        userRef,
+        {
+          dailyQuizzes: {
+            [today]: increment(1),
+          },
+        },
+        { merge: true }
+      );
     } catch (error) {
       console.error("Error writing document:", error);
     }
   };
+  
 
   if (showScore || timeLeft === 0) {
     return (

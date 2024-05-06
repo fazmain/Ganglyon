@@ -11,8 +11,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import home from "./assets/home.png";
-import SignUp from "./SignUp";
-import SignIn from "./SignIn";
 import { Link } from "react-router-dom";
 import { useUser } from "./contexts/UserContext";
 
@@ -55,6 +53,9 @@ const DemoWelcome = () => {
           <Box>
             <Button colorScheme="red" variant={"outline"} onClick={refresh}>
               <Link to="/landing">Go to all quizzes.</Link>
+            </Button>
+            <Button colorScheme="red">
+              <Link to="/dashboard">Go to dashboard.</Link>{" "}
             </Button>
           </Box>
         </Stack>

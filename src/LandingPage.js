@@ -17,15 +17,26 @@ import {
   CardBody,
   CardHeader,
   CardFooter,
-  ring,
+  Input,
   HStack,
   Tag,
   useColorMode,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useUser } from "./contexts/UserContext";
 
 const LandingPage = ({ quizzes }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedQuiz, setSelectedQuiz] = useState(null);
+
   const user = useUser();
   const { colorMode } = useColorMode();
   const [subjectFilter, setSubjectFilter] = useState("");
@@ -33,6 +44,12 @@ const LandingPage = ({ quizzes }) => {
   const [typeFilter, setTypeFilter] = useState("");
   const [filteredChapters, setFilteredChapters] = useState([]);
   const [filteredTypes, setFilteredTypes] = useState([]);
+  const [numberOfQuizzes, setNumberOfQuizzes] = useState(10); // Default number of quizzes
+
+  const handleQuizSelection = (quiz) => {
+    setSelectedQuiz(quiz);
+    onOpen();
+  };
 
   useEffect(() => {
     // Filter chapters based on selected subject
@@ -157,55 +174,100 @@ const LandingPage = ({ quizzes }) => {
       <Divider my={4} />
 
       <Box>
-        <Grid templateColumns="repeat(auto-fill, minmax(300px, 1fr))" gap={4} width={"100%"}>
+        <Grid
+          templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+          gap={4}
+          width={{ base: "100%", lg: "100%" }}
+        >
           {filteredQuizzes.map((quiz) => (
             <GridItem key={quiz.quizID}>
-              <Card maxW="sm" _hover={{ boxShadow: "lg" }} mx="auto">
-                <CardHeader>
+              <Card maxW="sm" _hover={{ boxShadow: "lg" }} mx="auto" bg={"red.50"}>
+                <CardHeader onClick={() => handleQuizSelection(quiz)}>
                   <Text fontSize="2xl" fontWeight="bold">
                     {quiz.quizChapter}
                   </Text>
                   <Tag sizeize="md" colorScheme="red">
                     {quiz.quizType === "TF" ? "MCQ" : "SBA"}
                   </Tag>
-                  <HStack>
-                    <Text fontSize="md" as={"b"}>
-                      Questions:
-                    </Text>
-                    <Text fontSize={"md"}>10</Text>
-                  </HStack>
-                  <HStack>
-                    <Text fontSize="md" as={"b"}>
-                      Time:
-                    </Text>
-                    <Text fontSize={"md"}>5 Minutes</Text>
-                  </HStack>
                 </CardHeader>
-                <CardBody>
-                  <Link
-                    to={`/quiz/${quiz.quizID}`}
-                    style={{ textDecoration: "none" }}
+                {/* <CardBody>
+                  <Button
+                    colorScheme="red"
+                    onClick={() => handleQuizSelection(quiz)}
                   >
-                    <Button
-                      colorScheme="red"
-                      width="50%"
-                      size="md"
-                      _hover={{
-                        transform: "scale(1.05)",
-                        transition: "all .2s ease-in-out",
-                      }}
-                    >
-                      Take Quiz
-                    </Button>
-                  </Link>
-                </CardBody>
+                    Take Quiz
+                  </Button>
+                </CardBody> */}
               </Card>
             </GridItem>
           ))}
         </Grid>
       </Box>
-    </Container>
 
+      {selectedQuiz && (
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
+          isCentered
+          size={{ base: "xs", lg: "lg" }}
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Quiz Details</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <HStack>
+                <Text fontSize="md" as={"b"}>
+                  Subject:{" "}
+                </Text>
+                <Text fontSize={"md"}>{selectedQuiz.quizSubject}</Text>
+              </HStack>
+              <HStack>
+                <Text fontSize="md" as={"b"} my={1}>
+                  Chapter:
+                </Text>
+                <Text fontSize={"md"}>{selectedQuiz.quizChapter}</Text>
+              </HStack>
+              <Text my={2}>Number of Questions: </Text>
+              <Select
+                value={numberOfQuizzes}
+                onChange={(e) => setNumberOfQuizzes(e.target.value)}
+              >
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+              </Select>
+              <HStack>
+                <Text fontSize="md" as={"b"} my={1}>
+                  Questions:
+                </Text>
+                <Text fontSize={"md"}>{numberOfQuizzes}</Text>
+              </HStack>
+              <HStack>
+                <Text fontSize="md" as={"b"} mb={1}>
+                  Time:
+                </Text>
+                <Text fontSize={"md"}>
+                  {Math.floor((numberOfQuizzes * 20) / 60)} minutes{" "}
+                  {(numberOfQuizzes * 20) % 60} seconds
+                </Text>
+              </HStack>
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="red" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Link
+                to={`/quiz/${selectedQuiz.quizID}?count=${numberOfQuizzes}`}
+                style={{ textDecoration: "none" }}
+              >
+                <Button colorScheme="green">Start Quiz</Button>
+              </Link>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      )}
+    </Container>
   );
 };
 

@@ -29,6 +29,9 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
+import UserCalendar from "./UserCalendar";
+import UserWelcome from "./UserWelcome";
+
 
 const Dashboard = ({ user }) => {
   const [quizResults, setQuizResults] = useState([]);
@@ -74,7 +77,8 @@ const Dashboard = ({ user }) => {
   return (
     <Container maxW="container.xl" py={5}>
       <Flex justify="space-between" align="center" mb={6}>
-        <Heading as="h1" size="xl">
+        <UserWelcome user={user} />
+        <Heading size="lg">
           Dashboard
         </Heading>
       </Flex>
@@ -124,6 +128,8 @@ const Dashboard = ({ user }) => {
           </Box>
         ))}
       </SimpleGrid>
+      <UserCalendar user={user} />
+      
     </Container>
   );
 };

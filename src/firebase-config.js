@@ -24,6 +24,8 @@ const db = getFirestore(app);
 
 const quizdb = getDatabase(app);
 
-export { auth, app, db, quizdb };
-
 const perf = getPerformance(app);
+
+export { auth, app, db, quizdb, perf };
+
+

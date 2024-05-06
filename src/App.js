@@ -10,41 +10,39 @@ import Navbar from "./NavBar";
 import Welcome from "./Welcome";
 import Banner from "./Banner";
 import DemoWelcome from "./DemoWelcome";
-import '@fontsource/roboto'
+import "@fontsource/roboto";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
-
 
 const theme = extendTheme({
   fonts: {
     heading: `roboto`,
     body: `roboto`,
   },
-})
+});
 
 function App() {
   const [user, setUser] = useState(null);
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect((user) => {
+  useEffect(() => {
     const quizdb = getDatabase();
     const quizRef = ref(quizdb, "quizzes");
-
-    onValue(
-      quizRef,
-      (snapshot) => {
-        const data = snapshot.val();
-        if (data) {
-          setQuizzes(data);
+      onValue(
+        quizRef,
+        (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            setQuizzes(data);
+          }
+          setLoading(false);
+        },
+        {
+          onlyOnce: true,
         }
-        setLoading(false);
-      },
-      {
-        onlyOnce: true,
-      }
-    );
+      );
   }, []);
 
   useEffect(() => {
