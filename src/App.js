@@ -30,19 +30,19 @@ function App() {
   useEffect(() => {
     const quizdb = getDatabase();
     const quizRef = ref(quizdb, "quizzes");
-      onValue(
-        quizRef,
-        (snapshot) => {
-          const data = snapshot.val();
-          if (data) {
-            setQuizzes(data);
-          }
-          setLoading(false);
-        },
-        {
-          onlyOnce: true,
+    onValue(
+      quizRef,
+      (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          setQuizzes(data);
         }
-      );
+        setLoading(false);
+      },
+      {
+        onlyOnce: true,
+      }
+    );
   }, []);
 
   useEffect(() => {
@@ -76,16 +76,16 @@ function App() {
             <Box>
               {user ? (
                 <Routes>
-                  <Route path="/" element={<DemoWelcome />} />
+                  <Route path="/" exact element={<DemoWelcome />} />
                   <Route
                     path="/landing"
                     element={<LandingPage quizzes={quizzes} />}
                   />
-
                   <Route
                     path="/quiz/:quizID"
                     element={<Quiz quizzes={quizzes} user={user} />}
                   />
+
                   <Route
                     path="/dashboard"
                     element={<Dashboard user={user} />}

@@ -30,13 +30,24 @@ import {
   ModalBody,
   ModalFooter,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { useUser } from "./contexts/UserContext";
+
+
+function capitalizeFirstLetter(string) {
+  return string.toUpperCase()[0] + string.slice(1);
+}
+
+const useQuery = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
 const LandingPage = ({ quizzes }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedQuiz, setSelectedQuiz] = useState(null);
-
+  const {chapterName} = useParams();
+const query = useQuery();
+const subject = query.get("subject");
   const user = useUser();
   const { colorMode } = useColorMode();
   const [subjectFilter, setSubjectFilter] = useState("");
@@ -44,7 +55,9 @@ const LandingPage = ({ quizzes }) => {
   const [typeFilter, setTypeFilter] = useState("");
   const [filteredChapters, setFilteredChapters] = useState([]);
   const [filteredTypes, setFilteredTypes] = useState([]);
-  const [numberOfQuizzes, setNumberOfQuizzes] = useState(10); // Default number of quizzes
+  const [numberOfQuizzes, setNumberOfQuizzes] = useState(10);
+  const [filteredQuizzes, setFilteredQuizzes] = useState([]);
+
 
   const handleQuizSelection = (quiz) => {
     setSelectedQuiz(quiz);
@@ -52,51 +65,60 @@ const LandingPage = ({ quizzes }) => {
   };
 
   useEffect(() => {
-    // Filter chapters based on selected subject
-    if (subjectFilter) {
-      const chapters = new Set(
-        quizzes
-          .filter((quiz) => quiz.quizSubject === subjectFilter)
-          .map((quiz) => quiz.quizChapter)
-      );
-      setFilteredChapters([...chapters]);
-      setChapterFilter("");
-      setFilteredTypes([]); // Reset types when subject changes
-      setTypeFilter("");
+    if (subject) {
+      const filtered = quizzes.filter(quiz => quiz.quizSubject === subject);
+      setFilteredQuizzes(filtered);
     } else {
-      setFilteredChapters([]);
-      setFilteredTypes([]);
-      setChapterFilter("");
-      setTypeFilter("");
+      setFilteredQuizzes(quizzes);
     }
-  }, [subjectFilter, quizzes]);
+  }, [subject, quizzes]);
+  
+  // useEffect(() => {
+  //   // Filter chapters based on selected subject
+  //   if (subjectFilter) {
+  //     const chapters = new Set(
+  //       quizzes
+  //         .filter((quiz) => quiz.quizSubject === subjectFilter)
+  //         .map((quiz) => quiz.quizChapter)
+  //     );
+  //     setFilteredChapters([...chapters]);
+  //     setChapterFilter("");
+  //     setFilteredTypes([]); // Reset types when subject changes
+  //     setTypeFilter("");
+  //   } else {
+  //     setFilteredChapters([]);
+  //     setFilteredTypes([]);
+  //     setChapterFilter("");
+  //     setTypeFilter("");
+  //   }
+  // }, [subjectFilter, quizzes]);
 
-  useEffect(() => {
-    // Filter types based on selected subject and chapter
-    if (chapterFilter) {
-      const types = new Set(
-        quizzes
-          .filter(
-            (quiz) =>
-              quiz.quizSubject === subjectFilter &&
-              quiz.quizChapter === chapterFilter
-          )
-          .map((quiz) => quiz.quizType)
-      );
-      setFilteredTypes([...types]);
-      setTypeFilter("");
-    } else {
-      setFilteredTypes([]);
-      setTypeFilter("");
-    }
-  }, [chapterFilter, quizzes]);
+  // useEffect(() => {
+  //   // Filter types based on selected subject and chapter
+  //   if (chapterFilter) {
+  //     const types = new Set(
+  //       quizzes
+  //         .filter(
+  //           (quiz) =>
+  //             quiz.quizSubject === subjectFilter &&
+  //             quiz.quizChapter === chapterFilter
+  //         )
+  //         .map((quiz) => quiz.quizType)
+  //     );
+  //     setFilteredTypes([...types]);
+  //     setTypeFilter("");
+  //   } else {
+  //     setFilteredTypes([]);
+  //     setTypeFilter("");
+  //   }
+  // }, [chapterFilter, quizzes]);
 
-  const filteredQuizzes = quizzes.filter(
-    (quiz) =>
-      (subjectFilter ? quiz.quizSubject === subjectFilter : true) &&
-      (chapterFilter ? quiz.quizChapter === chapterFilter : true) &&
-      (typeFilter ? quiz.quizType === typeFilter : true)
-  );
+  // const filteredQuizzes = quizzes.filter(
+  //   (quiz) =>
+  //     (subjectFilter ? quiz.quizSubject === subjectFilter : true) &&
+  //     (chapterFilter ? quiz.quizChapter === chapterFilter : true) &&
+  //     (typeFilter ? quiz.quizType === typeFilter : true)
+  // );
 
   return (
     <Container maxW="container.xl" p={4} pt={6}>
