@@ -18,8 +18,8 @@ const Banner = ({ text }) => {
     onClose,
     onOpen,
   } = useDisclosure({ defaultIsOpen: true });
-  const bgColor = useColorModeValue("red.500", "red.200");
-  const textColor = useColorModeValue("gray.100", "gray.800");
+  const bgColor = useColorModeValue("secondary", "secondary");
+  const textColor = useColorModeValue("gray.100", "gray.100");
 
 React.useEffect(() => {
     const timer = setTimeout(() => {

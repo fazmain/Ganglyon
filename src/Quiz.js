@@ -26,8 +26,7 @@ const Quiz = ({ quizzes, user }) => {
   let quiz = quizzes.find((q) => q.quizID === quizID);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const numberOfQuizzes = parseInt(queryParams.get('count'));
-
+  const numberOfQuizzes = parseInt(queryParams.get("count"));
 
   const [randomNumbers, setRandomNumbers] = useState(() => {
     const numbers = [];
@@ -45,7 +44,7 @@ const Quiz = ({ quizzes, user }) => {
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [showScore, setShowScore] = useState(false);
+  const [showScore, setShowScore] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState({});
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const [skip, setSkip] = useState(0);
@@ -131,24 +130,34 @@ const Quiz = ({ quizzes, user }) => {
     }
   };
 
+  const formatDate = (date) => {
+    return [
+      date.getFullYear(),
+      ("0" + (date.getMonth() + 1)).slice(-2), // Adds leading zero if needed
+      ("0" + date.getDate()).slice(-2), // Adds leading zero if needed
+    ].join("-");
+  };
+
   const saveQuizResult = async () => {
     const quizRef = doc(db, "users", user.uid, "quizzes", quiz.quizID);
     const userRef = doc(db, "users", user.uid);
-    const today = new Date().toISOString().slice(0, 10); // Get today's date in YYYY-MM-DD format
-  
+    const today = formatDate(new Date()); // Get today's date in local timezone YYYY-MM-DD format
+    const timestamp = Date.now(); // Get the current timestamp
+
     try {
       await setDoc(
         quizRef,
         {
-          scores: arrayUnion(score.toFixed(1)),
+          scores: arrayUnion({ score: score.toFixed(1), timestamp }),
           totalQuestions: randomNumbers.length,
           quizInfo: quiz.quizSubject + " - " + quiz.quizChapter,
           lastAttemptScore: score.toFixed(1),
           attempts: increment(1),
+          quizType: quiz.quizType,
         },
         { merge: true }
       );
-  
+
       // Update daily attempts, creating or incrementing the field for today
       await setDoc(
         userRef,
@@ -159,11 +168,11 @@ const Quiz = ({ quizzes, user }) => {
         },
         { merge: true }
       );
+      console.log("Quiz data saved:", quizRef, userRef);
     } catch (error) {
       console.error("Error writing document:", error);
     }
   };
-  
 
   if (showScore || timeLeft === 0) {
     return (
@@ -210,7 +219,7 @@ const Quiz = ({ quizzes, user }) => {
     <Container>
       <Card mt={5}>
         <CardHeader>
-          <Text fontSize={"xl"} as="b" color={"red.500"}>
+          <Text fontSize={"xl"} as="b" color="primary">
             Question {currentQuestionIndex + 1}
           </Text>
           <br />
@@ -219,7 +228,7 @@ const Quiz = ({ quizzes, user }) => {
           </Text>
           <br />
           {currentQuestion.questionUni && (
-            <Tag colorScheme="red" size={"md"}>
+            <Tag bg="primary" color="white" size={"md"}>
               {currentQuestion.questionUni}
             </Tag>
           )}
@@ -250,15 +259,29 @@ const Quiz = ({ quizzes, user }) => {
         )}
 
         <CardFooter>
-          <Button
-            mt={4}
-            onClick={handleAnswerSubmission}
-            isDisabled={!selectedOptions}
-          >
-            {currentQuestionIndex === randomNumbers.length - 1
-              ? "Finish Quiz"
-              : "Next Question"}
-          </Button>
+          <VStack width={"full"}>
+            {currentQuestionIndex === randomNumbers.length - 1 ? (
+              ""
+            ) : (
+              <Button
+                mt={4}
+                onClick={handleAnswerSubmission}
+                isDisabled={!selectedOptions}
+                width={"full"}
+              >
+                Next Question
+              </Button>
+            )}
+
+            <Button
+              onClick={handleQuizFinish}
+              width={"full"}
+              color={"white"}
+              bg="primary"
+            >
+              Finish Quiz
+            </Button>
+          </VStack>
         </CardFooter>
         <Text p={4} fontSize={"lg"} as="b" color={"red.500"}>
           Time Remaining: {minutes} minutes {seconds} seconds

@@ -3,7 +3,7 @@ import { auth } from "./firebase-config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  sendPasswordResetEmail,  // Import this
+  sendPasswordResetEmail, // Import this
 } from "firebase/auth";
 import {
   Box,
@@ -44,7 +44,8 @@ function SignIn() {
   };
 
   const handlePasswordReset = async () => {
-    if (email) { // Make sure the user has entered their email
+    if (email) {
+      // Make sure the user has entered their email
       try {
         await sendPasswordResetEmail(auth, email);
         toast({
@@ -75,13 +76,15 @@ function SignIn() {
   };
 
   return (
-    <Box p="8" borderWidth="1px" borderRadius="lg">
+    <Box borderRadius="lg">
       <Text fontSize="xl" as="b">
         Sign in
       </Text>
       <FormControl mt="4" isRequired>
         <FormLabel>Email</FormLabel>
         <Input
+          variant="filled"
+          height={"50px"}
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -90,6 +93,8 @@ function SignIn() {
       <FormControl mt="4" isRequired>
         <FormLabel>Password</FormLabel>
         <Input
+          variant="filled"
+          height={"50px"}
           placeholder="Enter your password"
           type="password"
           value={password}
@@ -97,8 +102,11 @@ function SignIn() {
         />
       </FormControl>
       <Button
-        colorScheme="red"
-        mt="4"
+        height="50px"
+        bg="primary"
+        color="white"
+        width={"full"}
+        mt="5"
         onClick={handleSignIn}
         isLoading={isLoading}
       >
@@ -106,7 +114,9 @@ function SignIn() {
       </Button>
       <Button
         mt="4"
-        colorScheme="blue"
+        height="50px"
+        width={"full"}
+        color="primary"
         onClick={handlePasswordReset}
         isLoading={isLoading}
         variant="outline"

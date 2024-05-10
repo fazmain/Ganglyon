@@ -25,7 +25,7 @@ const MCQReview = ({ quiz, randomNumbers, userAnswers }) => {
                 <Text as="b" color={"teal.500"}>
                   Correct Answer: {question.correct}
                 </Text>
-                <Text>Solution: {question.solution}</Text>
+                {question.solution && <Text>Explanation: {question.solution}</Text>}
               </Box>
             );
           }

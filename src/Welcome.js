@@ -30,14 +30,14 @@ const Welcome = () => {
         boxShadow="lg"
         bg={colorMode === "light" ? "white" : "gray.700"}
       >
-        <Image src={home} alt="Home" objectFit="contain" height="50vh" ml={8} />
-        <Box p={2} mx={"auto"}>
-          <Stack spacing={6}>
-            <Heading color={colorMode === "light" ? "red.600" : "red.300"}>
+        {/* <Image src={home} alt="Home" objectFit="contain" height="50vh" ml={8} /> */}
+        <Box p={2} mt={2} mx={"auto"}>
+          <Stack spacing={3}>
+            <Heading size={"xl"} color="dark">
               Medical Quizzes have never been easier!
             </Heading>
             <Text
-              fontSize={"xl"}
+              fontSize={"md"}
               color={colorMode === "light" ? "gray.600" : "gray.200"}
             >
               Login on Sign up to take a quiz.{" "}

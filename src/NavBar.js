@@ -54,7 +54,7 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
               <img
                 src={require("./assets/logo.png")}
                 alt="Logo"
-                width={"65rem"}
+               width="150rem"
               />
             </Link>
           ) : (
@@ -62,7 +62,7 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
               <img
                 src={require("./assets/logo_dark.png")}
                 alt="Logo"
-                width={"65rem"}
+                width="150rem"
               />
             </Link>
           )}
@@ -76,7 +76,11 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
         />
         <Flex alignItems={"center"} display={{ base: "none", md: "flex" }}>
           <Link href="/">
-            <Button mx={2} variant="ghost" colorScheme="red">
+            <Button
+              mx={2}
+              variant="ghost"
+              _hover={{ bg: "primary", color: "white" }}
+            >
               Home
             </Button>
           </Link>
@@ -84,7 +88,12 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
           {user ? (
             <>
               <Link href="/dashboard">
-                <Button mx={2} colorScheme="red">
+                <Button
+                  mx={2}
+                  bg="primary"
+                  color="white"
+                  _hover={{ bg: "primary", opacity: 0.8 }}
+                >
                   Dashboard
                 </Button>
               </Link>
@@ -93,6 +102,7 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
                 colorScheme="gray"
                 mx={2}
                 variant="outline"
+                _hover={{ bg: "primary", color: "white" }}
               >
                 Sign Out
               </Button>
@@ -121,18 +131,32 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
           <DrawerBody>
             <VStack spacing={4}>
               <Link href="/">
-                <Button mx={2} variant="ghost" colorScheme="red">
+                <Button
+                  mx={2}
+                  variant="ghost"
+                  color="primary"
+                  _hover={{ bg: "primary", color: "white" }}
+                >
                   Home
                 </Button>
               </Link>
 
               {user ? (
                 <>
-                  <Button w="100%" onClick={signOut} colorScheme="gray">
+                  <Button
+                    w="100%"
+                    onClick={signOut}
+                    color="gray"
+                    _hover={{ bg: "primary", color: "white" }}
+                  >
                     Sign Out
                   </Button>
                   <Link href="/dashboard" w="100%">
-                    <Button colorScheme="red" w="100%">
+                    <Button
+                      color="primary"
+                      w="100%"
+                      _hover={{ bg: "primary", opacity: 0.8 }}
+                    >
                       Dashboard
                     </Button>
                   </Link>

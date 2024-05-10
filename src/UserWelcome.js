@@ -1,16 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import { useUser } from "./contexts/UserContext";
-import { Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack } from "@chakra-ui/react";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase-config";
+import UserProfile from "./UserProfile";
+import male from "./assets/avatars/male.png";
+import female from "./assets/avatars/female.png";
 
 const UserWelcome = () => {
-    const user = useUser();
+  const user = useUser();
+  const [userInfo, setUserInfo] = useState({});
 
-    return (
-        <div>
-            <Heading size="md">Welcome back,</Heading>
-            <Heading as="b" size={"xl"} color={"red.500"}>{user.displayName || "User"}!</Heading>
-        </div>
-    );
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists()) {
+          setUserInfo(docSnap.data());
+        } else {
+          console.log("No such document!");
+        }
+      }
+    };
+
+    fetchUserInfo();
+  }, [user]);
+
+  console.log(user);
+
+  return (
+    <Box p={5}>
+      {userInfo && (
+        <UserProfile
+          name={user.displayName}
+          email={user.email}
+          avatar={userInfo.gender === "male" ? male : female}
+          college={userInfo.college}
+          profession={userInfo.profession}
+        />
+      )}
+    </Box>
+  );
 };
 
 export default UserWelcome;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { db } from "./firebase-config";
-import { collection, query, getDocs } from "firebase/firestore";
+import { collection, query, getDocs, getDoc, doc } from "firebase/firestore";
 import {
   Box,
   Text,
@@ -21,6 +21,7 @@ import {
   Grid,
   GridItem,
   AspectRatio,
+  Tag,
 } from "@chakra-ui/react";
 import {
   BrowserRouter as Router,
@@ -29,9 +30,10 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
-import UserCalendar from "./UserCalendar";
 import UserWelcome from "./UserWelcome";
-
+import UserScoreCard from "./UserScoreCard";
+import StreakComponent from "./UserStreak";
+import WeeklyQuizStats from "./WeeklyQuizStats";
 
 const Dashboard = ({ user }) => {
   const [quizResults, setQuizResults] = useState([]);
@@ -68,20 +70,36 @@ const Dashboard = ({ user }) => {
 
   if (!quizResults.length) {
     return (
-      <Container centerContent>
-        <Heading color="red.500" p={10}>No Quizzes Still Taken</Heading>
-      </Container>
+      <Box centerContent>
+        <Box justify="space-between" mb={6}>
+          <UserWelcome />
+        </Box>
+        <Box p={5} boxShadow={"lg"} borderRadius={"lg"}>
+          <Text as="b" size="xl" color="dark" my={1}>
+            Take your first quiz to see your results here!
+          </Text>
+          <br />
+          <Button
+            onClick={() => navigate(`/`)}
+            width={"full"}
+            bg="primary"
+            color="white"
+            my={3}
+          >
+            Take a quiz!
+          </Button>
+        </Box>
+      </Box>
     );
   }
 
   return (
     <Container maxW="container.xl" py={5}>
-      <Flex justify="space-between" align="center" mb={6}>
-        <UserWelcome user={user} />
-        <Heading size="lg">
-          Dashboard
-        </Heading>
-      </Flex>
+      <Box justify="center" align="center" mb={6}>
+        <UserWelcome />
+      </Box>
+      <StreakComponent />
+      <WeeklyQuizStats />
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
         {quizResults.map((result) => (
           <Box
@@ -93,43 +111,33 @@ const Dashboard = ({ user }) => {
           >
             <Heading as="h3" size="md">
               {result.quizInfo}
+              <br />
+              <Tag colorScheme="red">
+                {result.quizType === "TF" ? "MCQ" : "SBA"}
+              </Tag>
             </Heading>
 
-            <Text fontSize="lg">
-              <strong>Total Questions:</strong> {result.totalQuestions}
-            </Text>
-
             <Divider my={3} />
-            <Grid templateColumns="repeat(2, 1fr)" gap={4}>
+            <Grid templateColumns="repeat(3, 1fr)" gap={4}>
               <GridItem>
                 <Stat>
-                  <StatLabel>Attempts</StatLabel>
+                  <StatLabel fontSize="md">Attempts</StatLabel>
                   <StatNumber>{result.attempts}</StatNumber>
-                  <StatHelpText>
-                    Number of times you've taken this quiz
-                  </StatHelpText>
                 </Stat>
               </GridItem>
               <GridItem>
                 <Stat>
-                  <StatLabel>Last Score</StatLabel>
+                  <StatLabel fontSize="md">Last Score</StatLabel>
                   <StatNumber>{result.lastAttemptScore}</StatNumber>
-                  <StatHelpText>Your score in the last attempt</StatHelpText>
                 </Stat>
+              </GridItem>
+              <GridItem>
+                <UserScoreCard user={user} result={result} />
               </GridItem>
             </Grid>
-            <Button
-              onClick={() => navigate(`/quiz/${result.id}`)}
-              colorScheme="red"
-              
-            >
-              Take quiz again!
-            </Button>
           </Box>
         ))}
       </SimpleGrid>
-      <UserCalendar user={user} />
-      
     </Container>
   );
 };

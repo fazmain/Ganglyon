@@ -9,12 +9,27 @@ import {
   useBreakpointValue,
   Flex,
   Button,
+  Grid,
+  SimpleGrid,
+  HStack,
+  VStack,
 } from "@chakra-ui/react";
 import home from "./assets/home.png";
 import { Link } from "react-router-dom";
 import { useUser } from "./contexts/UserContext";
+import UserProfile from "./UserProfile";
 
-const subjects = ["Anatomy", "Physiology", "Biochemistry"];
+const subjects = [
+  "Anatomy",
+  "Physiology",
+  "Biochemistry",
+  "Gyne",
+  "Surgery",
+  "Medicine",
+  "Community",
+  "Forensic",
+  "Pharma",
+];
 
 const DemoWelcome = () => {
   const { colorMode } = useColorMode();
@@ -22,75 +37,58 @@ const DemoWelcome = () => {
   const user = useUser();
 
   const refresh = () => {
-    window.location.reload();
+    setTimeout(() => {
+      window.location.reload();
+    }, 1);
   };
 
   return (
     <>
-      <Flex
-        direction={{ base: "column", lg: "row" }}
-        align="center"
-        justify="center"
-        mt={7}
-        p={8}
-        borderRadius="lg"
-        boxShadow="lg"
-        bg={colorMode === "light" ? "white" : "gray.700"}
-      >
-        <Stack
-          spacing={4}
-          alignItems={{ base: "center", lg: "flex-start" }}
-          mb={{ base: 6, lg: 0 }}
-        >
-          <Heading color={colorMode === "light" ? "red.600" : "red.300"}>
-            Medical Quizzes have never been easier!
-          </Heading>
-          <Text fontSize="xl" as="b">
-            Welcome, {user ? user.displayName : "User"}!
-          </Text>
-          {/* Depreciated google login */}
-          {/* <Button onClick={signInWithGoogle} maxW={"md"} variant={"outline"} leftIcon={<FcGoogle />} size="sm" py={2} px={4} >
-          Sign in with Google
-        </Button> */}
-
-          <Box>
-            <Button colorScheme="red" variant={"outline"} onClick={refresh}>
-              <Link to="/landing">Go to all quizzes.</Link>
-            </Button>
-            <Button colorScheme="red" mx={2}>
-              <Link to="/dashboard">Go to dashboard.</Link>{" "}
-            </Button>
-          </Box>
-        </Stack>
-        {isDesktop && (
-          <Image
-            src={home}
-            alt="Home"
-            objectFit="contain"
-            height="400px"
-            ml={8}
-          />
-        )}
-      </Flex>
       <Box
-        justify="center"
-        align="center"
-        my={7}
-        p={10}
+        my={6}
+        p={6}
         borderRadius="lg"
         boxShadow="lg"
         bg={colorMode === "light" ? "white" : "gray.700"}
       >
-        <Heading size="lg">
-          Select a subject to start a quiz.
+        <Text fontSize="2xl" as="b">
+          Welcome, {user ? user.displayName : "User"}!
+        </Text>
+        <br />
+        <Text
+          fontSize="md"
+          color={colorMode === "light" ? "gray.600" : "gray.400"}
+        >
+          Let's start your quiz selecting a subject from bellow
+        </Text>
+      </Box>
+      <Box>
+        <Heading size="lg" my={5}>
+          Subjects
         </Heading>
-        {subjects.map((subject) => (
-          <Button colorScheme="red" m={4} key={subject} height={"130px"} width={"150px"}>
+        <SimpleGrid columns={{ base: 2, md: 3, lg: 6 }} spacing={6}>
+          {subjects.map((subject) => (
             <Link as={Link} to={`/landing?subject=${subject}`}>
-              {subject}
+              <Box
+                as="button"
+                onClick={refresh}
+                borderRadius={"xl"}
+                bg={colorMode === "light" ? "gray.50" : "gray.600"}
+                boxShadow={"lg"}
+              >
+                <VStack>
+                  <Box px={12} pt={7} pb={3}>
+                    <img
+                      src={require(`./assets/subjects/${subject}.png`)}
+                      alt={subject}
+                    />
+                  </Box>
+                  <Text as="b" pb={1}> {subject}</Text>
+                </VStack>
+              </Box>
             </Link>
-          </Button>
-        ))}
+          ))}
+        </SimpleGrid>
       </Box>
     </>
   );

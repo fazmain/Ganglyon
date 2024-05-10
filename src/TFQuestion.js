@@ -15,11 +15,11 @@ const TFQuestion = ({ question, handleTFChange, selectedOptions }) => {
     <>
       {Object.keys(question.options).map((key) => (
         <Stack key={key} spacing={4}>
-          <Text>{`${question.options[key]} (${key.toUpperCase()}):`}</Text>
+          <Text>{`(${key.toUpperCase()}) ${question.options[key]} :`}</Text>
           <RadioGroup
             onChange={(value) => handleTFChange(key, value)}
             value={selectedOptions[key]?.toString()}
-            colorScheme="red"
+            colorScheme="blue"
           >
             <Stack direction="row">
               <Box border={"1px"} p={2} m={2} borderRadius={"md"}>

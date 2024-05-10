@@ -14,7 +14,7 @@ import {
   Wrap,
   WrapItem,
   Card,
-  CardBody,
+  Heading,
   CardHeader,
   CardFooter,
   Input,
@@ -34,10 +34,6 @@ import { Link, useParams, useLocation } from "react-router-dom";
 import { useUser } from "./contexts/UserContext";
 
 
-function capitalizeFirstLetter(string) {
-  return string.toUpperCase()[0] + string.slice(1);
-}
-
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
@@ -45,19 +41,13 @@ const useQuery = () => {
 const LandingPage = ({ quizzes }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedQuiz, setSelectedQuiz] = useState(null);
-  const {chapterName} = useParams();
-const query = useQuery();
-const subject = query.get("subject");
+  const { chapterName } = useParams();
+  const query = useQuery();
+  const subject = query.get("subject");
   const user = useUser();
   const { colorMode } = useColorMode();
-  const [subjectFilter, setSubjectFilter] = useState("");
-  const [chapterFilter, setChapterFilter] = useState("");
-  const [typeFilter, setTypeFilter] = useState("");
-  const [filteredChapters, setFilteredChapters] = useState([]);
-  const [filteredTypes, setFilteredTypes] = useState([]);
   const [numberOfQuizzes, setNumberOfQuizzes] = useState(10);
   const [filteredQuizzes, setFilteredQuizzes] = useState([]);
-
 
   const handleQuizSelection = (quiz) => {
     setSelectedQuiz(quiz);
@@ -66,13 +56,13 @@ const subject = query.get("subject");
 
   useEffect(() => {
     if (subject) {
-      const filtered = quizzes.filter(quiz => quiz.quizSubject === subject);
+      const filtered = quizzes.filter((quiz) => quiz.quizSubject === subject);
       setFilteredQuizzes(filtered);
     } else {
       setFilteredQuizzes(quizzes);
     }
   }, [subject, quizzes]);
-  
+
   // useEffect(() => {
   //   // Filter chapters based on selected subject
   //   if (subjectFilter) {
@@ -122,78 +112,10 @@ const subject = query.get("subject");
 
   return (
     <Container maxW="container.xl" p={4} pt={6}>
-      <Box mt={5} mb={7} p={8} borderRadius="lg" boxShadow="lg">
-        <Box
-          justify="space-between"
-          mb={4}
-          pb={4}
-          borderBottomWidth="1px"
-          borderColor="gray.200"
-        >
-          {user && (
-            <Text
-              as="b"
-              fontSize="4xl"
-              color={colorMode === "light" ? "red.500" : "red.400"}
-            >
-              Welcome, {user.displayName || "User"}!
-            </Text>
-          )}
-        </Box>
-        <Text fontSize="2xl" fontWeight="bold" pb={4}>
-          All Quizzes
-        </Text>
-        <Wrap spacing={4} mb={4}>
-          <WrapItem>
-            <Select
-              placeholder="Select Subject"
-              onChange={(e) => setSubjectFilter(e.target.value)}
-              value={subjectFilter}
-              variant={"filled"}
-              color={colorMode === "light" ? "red.600" : "red.400"}
-            >
-              {[...new Set(quizzes.map((quiz) => quiz.quizSubject))].map(
-                (subject) => (
-                  <option key={subject} value={subject}>
-                    {subject}
-                  </option>
-                )
-              )}
-            </Select>
-          </WrapItem>
-          <WrapItem>
-            <Select
-              placeholder="Select Chapter"
-              onChange={(e) => setChapterFilter(e.target.value)}
-              value={chapterFilter}
-              variant={"filled"}
-              color={colorMode === "light" ? "red.600" : "red.400"}
-            >
-              {filteredChapters.map((chapter) => (
-                <option key={chapter} value={chapter}>
-                  {chapter}
-                </option>
-              ))}
-            </Select>
-          </WrapItem>
-          <WrapItem>
-            <Select
-              placeholder="Select Type"
-              onChange={(e) => setTypeFilter(e.target.value)}
-              value={typeFilter}
-              variant={"filled"}
-              color={colorMode === "light" ? "red.600" : "red.400"}
-            >
-              {filteredTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </Select>
-          </WrapItem>
-        </Wrap>
+      <Box my={10} align={"center"}>
+        <Heading fontWeight={"900"}>{subject}</Heading>
       </Box>
-      <Divider my={4} />
+    
 
       <Box>
         <Grid
@@ -203,12 +125,19 @@ const subject = query.get("subject");
         >
           {filteredQuizzes.map((quiz) => (
             <GridItem key={quiz.quizID}>
-              <Card maxW="sm" _hover={{ boxShadow: "lg" }} mx="auto" bg={"red.50"}>
+              <Card
+                maxW="sm"
+                _hover={{ boxShadow: "lg" }}
+                mx="auto"
+                bg={"primary"}
+                color={"white"}
+                borderRadius={"xl"}
+              >
                 <CardHeader onClick={() => handleQuizSelection(quiz)}>
                   <Text fontSize="2xl" fontWeight="bold">
                     {quiz.quizChapter}
                   </Text>
-                  <Tag sizeize="md" colorScheme="red">
+                  <Tag sizeize="md" bg="secondary" color="white">
                     {quiz.quizType === "TF" ? "MCQ" : "SBA"}
                   </Tag>
                 </CardHeader>
@@ -252,6 +181,8 @@ const subject = query.get("subject");
               </HStack>
               <Text my={2}>Number of Questions: </Text>
               <Select
+              height={"50px"}
+              variant="filled"
                 value={numberOfQuizzes}
                 onChange={(e) => setNumberOfQuizzes(e.target.value)}
               >
@@ -276,14 +207,14 @@ const subject = query.get("subject");
               </HStack>
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="red" mr={3} onClick={onClose}>
+              <Button bg="dark" color={"white"} mr={3} onClick={onClose}>
                 Close
               </Button>
               <Link
                 to={`/quiz/${selectedQuiz.quizID}?count=${numberOfQuizzes}`}
                 style={{ textDecoration: "none" }}
               >
-                <Button colorScheme="green">Start Quiz</Button>
+                <Button bg="primary" color="white">Start Quiz</Button>
               </Link>
             </ModalFooter>
           </ModalContent>

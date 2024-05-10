@@ -10,15 +10,20 @@ import Navbar from "./NavBar";
 import Welcome from "./Welcome";
 import Banner from "./Banner";
 import DemoWelcome from "./DemoWelcome";
-import "@fontsource/roboto";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
+import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/400.css";
 
 const theme = extendTheme({
+  colors: {
+    primary: "#0097E6",
+    secondary: "#F9B50B",
+    dark: "#021116",
+  },
   fonts: {
-    heading: `roboto`,
-    body: `roboto`,
+    heading: `poppins`,
+    body: `poppins.400`,
   },
 });
 
