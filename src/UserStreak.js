@@ -18,6 +18,8 @@ import {
   Flex,
   Spacer,
 } from "@chakra-ui/react";
+import activeday from "./assets/streak/active.svg";
+import inactiveday from "./assets/streak/inactive.svg";
 
 const StreakComponent = () => {
   const user = useUser();
@@ -99,14 +101,16 @@ const StreakComponent = () => {
         borderRadius="xl"
         width={"full"}
         color="white"
-        py={3}
-        mb={3}
+        py={{ base: 5, md: "60px" }}
+        mb={{ base: 5, md: 0 }}
+        maxW={"xl"}
+        boxShadow={"lg"}
       >
         <Stack direction={"row"} spacing={2} justifyContent="center">
           <Text alignContent={"center"} fontSize="xl">
             Current Streak:{" "}
           </Text>
-          <Heading alignContent={"center"}>{streak}</Heading>
+          <Heading alignContent={"center"}>{streak + 1}</Heading>
           <Text alignContent={"center"} fontSize="xl">
             Days
           </Text>
@@ -114,24 +118,39 @@ const StreakComponent = () => {
       </Box>
       <Spacer />
 
-      <Spacer />
-      <Box align={"center"} borderRadius={"xl"} boxShadow={"lg"} my={2} py={4}>
-        <Text as="b" fontSize={"md"}>
+      <Box
+        align={"center"}
+        borderRadius={"xl"}
+        boxShadow={"lg"}
+        my={2}
+        py={5}
+        bg={"#DBF8FE"}
+        width={{ base: "full", md: "xl" }}
+      >
+        <Text as="b" fontSize={"md"} color={"black"}>
           Last Seven Days Streak
         </Text>
-        <Stack direction={"row"} spacing={1} justifyContent="center" mt={2} px={5}>
+        <Stack
+          direction={"row"}
+          spacing={2}
+          justifyContent="center"
+          mt={3}
+          px={4}
+        >
           {dailyActivities.map((active, index) => (
-            <Box p={1} >
-              <img
-                key={index}
-                src={
-                  active
-                    ? require("./assets/streak/active.png")
-                    : require("./assets/streak/inactive.png")
-                }
-                alt={active ? "Active day" : "Inactive day"}
-                width="50px"
-              />
+            <Box p={0.2} key={index}>
+              {active ? (
+                <img src={activeday} alt="Active day" width="50px" />
+              ) : (
+                <img src={inactiveday} alt="Inactive day" width="50px" />
+              )}
+              {active ? (
+                <Text  as="b" fontSize="xs" color="gray.600">
+                  Day {index + 1}
+                </Text>
+              ) : (
+                <Text fontSize="xs" pt={"5px"} color="gray.600">Day {index + 1}</Text>
+              )}
             </Box>
           ))}
         </Stack>

@@ -13,6 +13,9 @@ import {
   Input,
   useToast,
   Text,
+  Link,
+  Flex,
+  HStack,
 } from "@chakra-ui/react";
 
 function SignIn() {
@@ -76,7 +79,7 @@ function SignIn() {
   };
 
   return (
-    <Box borderRadius="lg">
+    <Box>
       <Text fontSize="xl" as="b">
         Sign in
       </Text>
@@ -101,28 +104,40 @@ function SignIn() {
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormControl>
+
+      <Flex justifyContent="flex-end">
+        <Button
+          mt={4}
+          color="secondary"
+          onClick={handlePasswordReset}
+          isLoading={isLoading}
+          variant="link"
+        >
+          Forgot Password?
+        </Button>
+      </Flex>
       <Button
         height="50px"
         bg="primary"
         color="white"
         width={"full"}
-        mt="5"
+        mt={6}
         onClick={handleSignIn}
         isLoading={isLoading}
       >
         Sign In
       </Button>
-      <Button
-        mt="4"
-        height="50px"
-        width={"full"}
-        color="primary"
-        onClick={handlePasswordReset}
-        isLoading={isLoading}
-        variant="outline"
-      >
-        Forgot Password?
-      </Button>
+
+      <Box py={5}>
+        <HStack>
+          <Text as="b">
+            <Link href="/signup">Don't have an account?</Link>
+          </Text>
+          <Text as="b" color={"primary"} _hover={{ color: "secondary" }}>
+            <Link href="/signup"> Sign Up </Link>
+          </Text>
+        </HStack>
+      </Box>
     </Box>
   );
 }

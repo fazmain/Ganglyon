@@ -9,7 +9,8 @@ import Dashboard from "./Dashboard";
 import Navbar from "./NavBar";
 import Welcome from "./Welcome";
 import Banner from "./Banner";
-import DemoWelcome from "./DemoWelcome";
+import DemoWelcome from "./LoggedIn";
+import SignUpPage from "./SignUpPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
 import "@fontsource/poppins/700.css";
@@ -98,7 +99,10 @@ function App() {
                 </Routes>
               ) : (
                 <>
-                  <Welcome />
+                  <Routes>
+                    <Route path="/signup" element={<SignUpPage />} />
+                    <Route path="/" element={<Welcome />} />
+                  </Routes>
                 </>
               )}
             </Box>

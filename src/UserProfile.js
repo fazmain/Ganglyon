@@ -12,8 +12,8 @@ export default function UserProfile(props) {
     "#009bd6 !important"
   );
   return (
-    <Card mb={{ base: "0px", lg: "20px" }} align="center" maxW="md">
-      <Box bg="#009bd6" bgSize="cover" borderRadius="16px" h="131px" w="100%" />
+    <Card mb={{ base: "0px", lg: "20px" }} align="center" maxW="md" boxShadow="md" borderRadius="xl" pb={5}>
+      <Box bg="#2bbdf2" bgSize="cover" borderTopRadius={"xl"} h="131px" w="100%" />
 
       <Avatar
         mx="auto"

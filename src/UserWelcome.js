@@ -30,12 +30,12 @@ const UserWelcome = () => {
   console.log(user);
 
   return (
-    <Box p={5}>
+    <Box py={4} px={0}>
       {userInfo && (
         <UserProfile
           name={user.displayName}
           email={user.email}
-          avatar={userInfo.gender === "male" ? male : female}
+          avatar={userInfo.gender === "Male" ? male : female}
           college={userInfo.college}
           profession={userInfo.profession}
         />

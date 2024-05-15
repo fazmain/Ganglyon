@@ -13,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 import home from "./assets/home.png";
 import SignUp from "./SignUp";
-import SignIn from "./SignIn";
 
 // import { FcGoogle } from "react-icons/fc";
 
@@ -27,13 +26,13 @@ const Welcome = () => {
         align="center"
         justify="center"
         mt={7}
-        px={7}
         p={5}
         borderRadius="lg"
         boxShadow="lg"
         bg={colorMode === "light" ? "white" : "gray.700"}
       >
         <Image
+          pl={10}
           src={home}
           alt="Home"
           objectFit="contain"
@@ -46,20 +45,13 @@ const Welcome = () => {
               size={"xl"}
               color={colorMode === "light" ? "dark" : "gray.50"}
             >
-              Medical Quizzes have never been easier!
+              Sign Up
             </Heading>
-            <Text
-              fontSize={"md"}
-              color={colorMode === "light" ? "gray.600" : "gray.200"}
-            >
-              Login on Sign up to take a quiz.{" "}
+            <Text color={"primary"}>
+              <Link href="/">Sign in Instead</Link>
             </Text>
-            {/* Depreciated google login */}
-            {/* <Button onClick={signInWithGoogle} maxW={"md"} variant={"outline"} leftIcon={<FcGoogle />} size="sm" py={2} px={4} >
-          Sign in with Google
-        </Button> */}
 
-            <SignIn />
+            <SignUp />
           </Stack>
         </Box>
       </Flex>

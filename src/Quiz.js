@@ -12,6 +12,14 @@ import {
   CardFooter,
   Divider,
   Tag,
+  useDisclosure,
+  Modal,
+  ModalBody,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalFooter,
 } from "@chakra-ui/react";
 import { doc, setDoc, increment, arrayUnion } from "firebase/firestore";
 import { db } from "./firebase-config";
@@ -39,7 +47,7 @@ const Quiz = ({ quizzes, user }) => {
     return numbers;
   });
 
-  const [timeLeft, setTimeLeft] = useState(numberOfQuizzes * 20);
+  const [timeLeft, setTimeLeft] = useState(numberOfQuizzes * 30);
   const [timerActive, setTimerActive] = useState(true);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -49,6 +57,7 @@ const Quiz = ({ quizzes, user }) => {
   const [wrongAnswers, setWrongAnswers] = useState(0);
   const [skip, setSkip] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     let interval = null;
@@ -66,8 +75,13 @@ const Quiz = ({ quizzes, user }) => {
   }, [timerActive, timeLeft]);
 
   const handleQuizFinish = () => {
+    onOpen();
+  };
+
+  const confirmFinishQuiz = () => {
     setShowScore(true);
     setTimerActive(false);
+    onClose();
   };
 
   useEffect(() => {
@@ -114,9 +128,12 @@ const Quiz = ({ quizzes, user }) => {
       if (selectedOptions[key] === isCorrect) {
         tfPoints += 1 / Object.keys(question.correct).length;
       }
+      
     }
     return tfPoints;
   };
+
+  
 
   const handleMCQAnswers = (question) => {
     if (Object.keys(selectedOptions).length === 0) {
@@ -234,6 +251,9 @@ const Quiz = ({ quizzes, user }) => {
           )}
         </CardHeader>
         <Divider />
+        <Text p={4} fontSize={"lg"} as="b" color={"secondary"}>
+          Time Remaining: {minutes} minutes {seconds} seconds
+        </Text>
         {isTF ? (
           <>
             <CardBody>
@@ -274,7 +294,10 @@ const Quiz = ({ quizzes, user }) => {
             )}
 
             <Button
-              onClick={handleQuizFinish}
+              onClick={() => {
+                handleQuizFinish();
+                handleAnswerSubmission();
+              }}
               width={"full"}
               color={"white"}
               bg="primary"
@@ -283,10 +306,28 @@ const Quiz = ({ quizzes, user }) => {
             </Button>
           </VStack>
         </CardFooter>
-        <Text p={4} fontSize={"lg"} as="b" color={"red.500"}>
-          Time Remaining: {minutes} minutes {seconds} seconds
-        </Text>
       </Card>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        size={{ base: "xs", lg: "lg" }}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Finish Quiz</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>Are you sure you want to finish the quiz?</ModalBody>
+          <ModalFooter>
+            <Button bg="dark" color={"white"} mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button bg="primary" color="white" onClick={confirmFinishQuiz}>
+              Confirm
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Container>
   );
 };

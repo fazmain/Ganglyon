@@ -1,22 +1,19 @@
 import React from "react";
-import { Box, Stack, Text, VStack } from "@chakra-ui/react";
+import { Box, Stack, Text, Heading, Divider } from "@chakra-ui/react";
 
 const TFReview = ({ quiz, randomNumbers, userAnswers }) => {
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p={4} mt={6}>
       <Stack spacing={4} p={4}>
-        <Text fontSize="2xl" mb={1} as="b">
-          Review of Your Answers
-        </Text>
+      <Heading fontSize="3xl" mb={1} color={"primary"}>
+          Review
+        </Heading>
         {randomNumbers.map((randomIndex, index) => {
           const question = quiz.questions[randomIndex];
           return (
             <Box
               key={index}
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              p={4}
+              p={1}
             >
               <Text fontWeight="bold">
                 Question {index + 1}: <br /> {question.question}
@@ -46,6 +43,7 @@ const TFReview = ({ quiz, randomNumbers, userAnswers }) => {
                 </Text>
               ))}
               <br />
+              <Divider mt={1}/>
             </Box>
           );
         })}

@@ -33,7 +33,6 @@ import {
 import { Link, useParams, useLocation } from "react-router-dom";
 import { useUser } from "./contexts/UserContext";
 
-
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
@@ -48,6 +47,7 @@ const LandingPage = ({ quizzes }) => {
   const { colorMode } = useColorMode();
   const [numberOfQuizzes, setNumberOfQuizzes] = useState(10);
   const [filteredQuizzes, setFilteredQuizzes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleQuizSelection = (quiz) => {
     setSelectedQuiz(quiz);
@@ -58,8 +58,10 @@ const LandingPage = ({ quizzes }) => {
     if (subject) {
       const filtered = quizzes.filter((quiz) => quiz.quizSubject === subject);
       setFilteredQuizzes(filtered);
+      setIsLoading(false);
     } else {
       setFilteredQuizzes(quizzes);
+      setIsLoading(false);
     }
   }, [subject, quizzes]);
 
@@ -112,47 +114,57 @@ const LandingPage = ({ quizzes }) => {
 
   return (
     <Container maxW="container.xl" p={4} pt={6}>
-      <Box my={10} align={"center"}>
+      <Button color={"primary"} variant={"link"}>
+        <Link to={"/"}> {"< "}Back to All Quizzes</Link>
+      </Button>
+
+      <Box my={8} align={"center"}>
         <Heading fontWeight={"900"}>{subject}</Heading>
       </Box>
-    
-
       <Box>
-        <Grid
-          templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
-          gap={4}
-          width={{ base: "100%", lg: "100%" }}
-        >
-          {filteredQuizzes.map((quiz) => (
-            <GridItem key={quiz.quizID}>
-              <Card
-                maxW="sm"
-                _hover={{ boxShadow: "lg" }}
-                mx="auto"
-                bg={"primary"}
-                color={"white"}
-                borderRadius={"xl"}
-              >
-                <CardHeader onClick={() => handleQuizSelection(quiz)}>
-                  <Text fontSize="2xl" fontWeight="bold">
-                    {quiz.quizChapter}
-                  </Text>
-                  <Tag sizeize="md" bg="secondary" color="white">
-                    {quiz.quizType === "TF" ? "MCQ" : "SBA"}
-                  </Tag>
-                </CardHeader>
-                {/* <CardBody>
-                  <Button
-                    colorScheme="red"
-                    onClick={() => handleQuizSelection(quiz)}
-                  >
-                    Take Quiz
-                  </Button>
-                </CardBody> */}
-              </Card>
-            </GridItem>
-          ))}
-        </Grid>
+        {filteredQuizzes.length === 0 ? (
+          <Box align="center" borderRadius={"lg"} boxShadow={"lg"} m={8} p={8}>
+            <Text as="b" color="primary" size="xl">
+              New Quizzes Coming Soon!
+            </Text>
+          </Box>
+        ) : (
+          <Grid
+            templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+            gap={4}
+            width={{ base: "100%", lg: "100%" }}
+          >
+            {filteredQuizzes.map((quiz) => (
+              <GridItem key={quiz.quizID}>
+                <Card
+                  maxW="sm"
+                  _hover={{ boxShadow: "lg" }}
+                  mx="auto"
+                  bg={"primary"}
+                  color={"white"}
+                  borderRadius={"xl"}
+                >
+                  <CardHeader onClick={() => handleQuizSelection(quiz)}>
+                    <Text fontSize="2xl" fontWeight="bold">
+                      {quiz.quizChapter}
+                    </Text>
+                    <Tag sizeize="md" bg="secondary" color="white">
+                      {quiz.quizType === "TF" ? "MCQ" : "SBA"}
+                    </Tag>
+                  </CardHeader>
+                  {/* <CardBody>
+                    <Button
+                      colorScheme="red"
+                      onClick={() => handleQuizSelection(quiz)}
+                    >
+                      Take Quiz
+                    </Button>
+                  </CardBody> */}
+                </Card>
+              </GridItem>
+            ))}
+          </Grid>
+        )}
       </Box>
 
       {selectedQuiz && (
@@ -181,14 +193,14 @@ const LandingPage = ({ quizzes }) => {
               </HStack>
               <Text my={2}>Number of Questions: </Text>
               <Select
-              height={"50px"}
-              variant="filled"
+                height={"50px"}
+                variant="filled"
                 value={numberOfQuizzes}
                 onChange={(e) => setNumberOfQuizzes(e.target.value)}
               >
+                <option value={5}>5</option>
                 <option value={10}>10</option>
                 <option value={20}>20</option>
-                <option value={50}>50</option>
               </Select>
               <HStack>
                 <Text fontSize="md" as={"b"} my={1}>
@@ -201,8 +213,8 @@ const LandingPage = ({ quizzes }) => {
                   Time:
                 </Text>
                 <Text fontSize={"md"}>
-                  {Math.floor((numberOfQuizzes * 20) / 60)} minutes{" "}
-                  {(numberOfQuizzes * 20) % 60} seconds
+                  {Math.floor((numberOfQuizzes * 30) / 60)} minutes{" "}
+                  {(numberOfQuizzes * 30) % 60} seconds
                 </Text>
               </HStack>
             </ModalBody>
@@ -214,7 +226,9 @@ const LandingPage = ({ quizzes }) => {
                 to={`/quiz/${selectedQuiz.quizID}?count=${numberOfQuizzes}`}
                 style={{ textDecoration: "none" }}
               >
-                <Button bg="primary" color="white">Start Quiz</Button>
+                <Button bg="primary" color="white">
+                  Start Quiz
+                </Button>
               </Link>
             </ModalFooter>
           </ModalContent>

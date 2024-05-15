@@ -14,6 +14,7 @@ import {
   Radio,
   Stack,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { db } from "./firebase-config";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -135,6 +136,7 @@ function SignUp() {
   const [profession, setProfession] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+  const navigate = useNavigate();
 
   const handleSignUp = async () => {
     setIsLoading(true);
@@ -164,7 +166,7 @@ function SignUp() {
         },
         { merge: true }
       );
-
+      navigate("/");
       toast({
         title: "Account created successfully",
         description: "Welcome, " + name,
@@ -185,10 +187,7 @@ function SignUp() {
   };
 
   return (
-    <Box my={7} p="8" borderWidth="1px" borderRadius="lg" boxShadow="lg">
-      <Text as="b" fontSize="lg" color="primary">
-        Don't have an account? Sign Up
-      </Text>
+    <Box my={3}>
       <FormControl isRequired mt={4}>
         <FormLabel>Name</FormLabel>
         <Input

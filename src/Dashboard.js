@@ -75,7 +75,7 @@ const Dashboard = ({ user }) => {
           <UserWelcome />
         </Box>
         <Box p={5} boxShadow={"lg"} borderRadius={"lg"}>
-          <Text as="b" size="xl" color="dark" my={1}>
+          <Text as="b" size="xl" my={1}>
             Take your first quiz to see your results here!
           </Text>
           <br />
@@ -95,24 +95,28 @@ const Dashboard = ({ user }) => {
 
   return (
     <Container maxW="container.xl" py={5}>
-      <Box justify="center" align="center" mb={6}>
+      <Box justify="center" align="center" mb={2}>
         <UserWelcome />
       </Box>
       <StreakComponent />
       <WeeklyQuizStats />
+      <Button
+            onClick={() => navigate(`/`)}
+            width={"full"}
+            bg="primary"
+            color="white"
+            my={3}
+          >
+            Take More Quizzes!
+          </Button>
+      <Heading my={6} size={"xl"} align="center" >Recent Scores</Heading>
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
         {quizResults.map((result) => (
-          <Box
-            key={result.id}
-            p={5}
-            shadow="md"
-            borderWidth="1px"
-            borderRadius="lg"
-          >
+          <Box key={result.id} p={5} boxShadow="lg" borderRadius="lg">
             <Heading as="h3" size="md">
               {result.quizInfo}
               <br />
-              <Tag colorScheme="red">
+              <Tag color="white" bg="primary">
                 {result.quizType === "TF" ? "MCQ" : "SBA"}
               </Tag>
             </Heading>

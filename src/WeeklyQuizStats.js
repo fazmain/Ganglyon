@@ -70,7 +70,7 @@ export const barChartOptions = {
   },
   fill: {
     type: "solid",
-    colors: "#009bd6",
+    colors: "#0097E6",
   },
   dataLabels: {
     enabled: true,
@@ -130,7 +130,7 @@ const WeeklyQuizStats = () => {
   };
 
   return (
-    <Box maxW="md" borderRadius={"xl"} boxShadow={"lg"} align="center" my={5}>
+    <Box maxW="md" borderRadius={"lg"} boxShadow={"lg"} align="center" my={5}>
       <Text fontSize="md" fontWeight="bold" pt={6} px={6}>
         Quizzes Taken This Week{" "}
       </Text>
