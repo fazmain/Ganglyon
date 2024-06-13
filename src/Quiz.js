@@ -296,7 +296,7 @@ const Quiz = ({ quizzes, user }) => {
             <Button
               onClick={() => {
                 handleQuizFinish();
-                handleAnswerSubmission();
+                if (currentQuestionIndex === randomNumbers.length - 1) {handleAnswerSubmission();}
               }}
               width={"full"}
               color={"white"}

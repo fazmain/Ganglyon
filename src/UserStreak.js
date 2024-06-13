@@ -57,7 +57,7 @@ const StreakComponent = () => {
         today.getFullYear(),
         today.getMonth(),
         today.getDate() - 1
-      ); // Start from yesterday
+      ); 
 
       while (true) {
         const formattedDate = formatDate(checkDate);

@@ -49,6 +49,7 @@ const MedicalCollegeList = [
   "Cox's Bazar Medical College",
   "Cumilla Medical College",
   "Delta Medical College",
+  "Dhaka Medical College",
   "Dhaka Community Medical College",
   "Dhaka National Medical College",
   "Diabetic Association Medical College",

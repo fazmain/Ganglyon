@@ -13,8 +13,9 @@ import DemoWelcome from "./LoggedIn";
 import SignUpPage from "./SignUpPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
-import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/400.css";
+
 
 const theme = extendTheme({
   colors: {
@@ -23,8 +24,12 @@ const theme = extendTheme({
     dark: "#021116",
   },
   fonts: {
-    heading: `poppins`,
-    body: `poppins.400`,
+    heading: `Poppins, sans-serif`,
+    body: `Poppins, sans-serif`,
+  },
+  fontWeights: {
+    heading: 600,
+    body: 400,
   },
 });
 
@@ -73,6 +78,7 @@ function App() {
 
   return (
     <UserProvider>
+      
       <ChakraProvider theme={theme}>
         <Banner text="This app is under development and may contain bugs, errors, or outdated information." />
 

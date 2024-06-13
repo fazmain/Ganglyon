@@ -51,7 +51,7 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
           >
             <Heading>Your Score</Heading>
             <Text fontSize="md" color={"gray.500"}>
-              Cardiovascular Physiology
+              {quiz.quizSubject} - {quiz.quizChapter}
             </Text>
             <CircularProgress
               value={scorePercentage}
@@ -101,7 +101,7 @@ const ScoreDisplay = ({ score, totalQuestions, wrong, skip, quiz }) => {
           >
             <Heading>Your Score</Heading>
             <Text fontSize="md" color={"gray.500"}>
-              Cardiovascular Physiology
+            {quiz.quizSubject} - {quiz.quizChapter}
             </Text>
             <CircularProgress
               value={scorePercentage}

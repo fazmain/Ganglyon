@@ -73,7 +73,7 @@ const DemoWelcome = () => {
           fontSize="md"
           color={colorMode === "light" ? "gray.600" : "gray.400"}
         >
-          Let's start your quiz selecting a subject from bellow
+          Let's start your quiz selecting a subject from below
         </Text>
       </Box>
       <Box m={{base:0, md:10}} boxShadow={"lg"} borderRadius={"2xl"}>

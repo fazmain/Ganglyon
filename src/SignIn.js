@@ -17,17 +17,20 @@ import {
   Flex,
   HStack,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const toast = useToast();
+  const navigate = useNavigate();
 
   const handleSignIn = async () => {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      
       toast({
         title: "Signed in successfully",
         status: "success",
@@ -43,6 +46,7 @@ function SignIn() {
         isClosable: true,
       });
     }
+    navigate("/");
     setIsLoading(false);
   };
 
