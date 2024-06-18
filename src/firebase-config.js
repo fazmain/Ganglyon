@@ -8,7 +8,8 @@ import {getAnalytics} from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBMMzxk6Gqs1Y0ELk2mb76fzIOHTgszUaA",
-  authDomain: "med-quiz-aeb42.firebaseapp.com",
+  // authDomain: "med-quiz-aeb42.firebaseapp.com",
+  authDomain: "synapti.cc",
   projectId: "med-quiz-aeb42",
   storageBucket: "med-quiz-aeb42.appspot.com",
   databaseURL: "https://med-quiz-aeb42-default-rtdb.asia-southeast1.firebasedatabase.app",

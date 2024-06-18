@@ -8,14 +8,13 @@ import LandingPage from "./LandingPage";
 import Dashboard from "./Dashboard";
 import Navbar from "./NavBar";
 import Welcome from "./Welcome";
-import Banner from "./Banner";
 import DemoWelcome from "./LoggedIn";
 import SignUpPage from "./SignUpPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/400.css";
-
+import DeleteAccount from "./DeleteAccount";
 
 const theme = extendTheme({
   colors: {
@@ -78,10 +77,7 @@ function App() {
 
   return (
     <UserProvider>
-      
       <ChakraProvider theme={theme}>
-        <Banner text="This app is under development and may contain bugs, errors, or outdated information." />
-
         <Router>
           <Container maxW="container.xl" p={4} pt={6}>
             <Navbar user={user} auth={auth} />
@@ -101,6 +97,10 @@ function App() {
                   <Route
                     path="/dashboard"
                     element={<Dashboard user={user} />}
+                  />
+                  <Route
+                    path="/DeleteAccount"
+                    element={<DeleteAccount user={user}/>}
                   />
                 </Routes>
               ) : (

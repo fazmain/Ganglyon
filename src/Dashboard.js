@@ -89,6 +89,15 @@ const Dashboard = ({ user }) => {
             Take a quiz!
           </Button>
         </Box>
+        <Box>
+        <Button
+          onClick={() => navigate(`/DeleteAccount`)}
+          width={"full"}
+          my={3}
+        >
+          Delete Your Account
+        </Button>
+      </Box>
       </Box>
     );
   }
@@ -101,15 +110,17 @@ const Dashboard = ({ user }) => {
       <StreakComponent />
       <WeeklyQuizStats />
       <Button
-            onClick={() => navigate(`/`)}
-            width={"full"}
-            bg="primary"
-            color="white"
-            my={3}
-          >
-            Take More Quizzes!
-          </Button>
-      <Heading my={6} size={"xl"} align="center" >Recent Scores</Heading>
+        onClick={() => navigate(`/`)}
+        width={"full"}
+        bg="primary"
+        color="white"
+        my={3}
+      >
+        Take More Quizzes!
+      </Button>
+      <Heading my={6} size={"xl"} align="center">
+        Recent Scores
+      </Heading>
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
         {quizResults.map((result) => (
           <Box key={result.id} p={5} boxShadow="lg" borderRadius="lg">
@@ -142,6 +153,15 @@ const Dashboard = ({ user }) => {
           </Box>
         ))}
       </SimpleGrid>
+      <Box>
+        <Button
+          onClick={() => navigate(`/DeleteAccount`)}
+          width={"full"}
+          my={3}
+        >
+          Delete Your Account
+        </Button>
+      </Box>
     </Container>
   );
 };
