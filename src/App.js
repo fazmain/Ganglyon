@@ -15,6 +15,8 @@ import { UserProvider } from "./contexts/UserContext";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/400.css";
 import DeleteAccount from "./DeleteAccount";
+import PrivacyStatement from "./Privacy";
+import PastQuestions from "./PastQuestions";
 
 const theme = extendTheme({
   colors: {
@@ -100,14 +102,17 @@ function App() {
                   />
                   <Route
                     path="/DeleteAccount"
-                    element={<DeleteAccount user={user}/>}
+                    element={<DeleteAccount user={user} />}
                   />
+                  <Route path="/privacy" element={<PrivacyStatement />} />
+                  <Route path="/past-questions" element={<PastQuestions />} />
                 </Routes>
               ) : (
                 <>
                   <Routes>
                     <Route path="/signup" element={<SignUpPage />} />
                     <Route path="/" element={<Welcome />} />
+                    <Route path="/privacy" element={<PrivacyStatement />} />
                   </Routes>
                 </>
               )}
