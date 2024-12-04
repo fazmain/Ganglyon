@@ -8,34 +8,35 @@ export default function UserProfile(props) {
   const textColorPrimary = useColorModeValue("secondaryGray.900", "white");
   const textColorSecondary = "gray.400";
   const borderColor = useColorModeValue(
-    "#009bd6 !important",
-    "#009bd6 !important"
+    "#cccccc !important",
+    "#cccccc !important"
   );
   return (
-    <Card mb={{ base: "0px", lg: "20px" }} align="center" maxW="md" boxShadow="md" borderRadius="xl" pb={5}>
-      <Box bg="#2bbdf2" bgSize="cover" borderTopRadius={"xl"} h="131px" w="100%" />
+    <Box>
+      <Card mb={{ base: "0px", lg: "20px" }} align="center" maxW="md" pb={5}>
+        {/* <Avatar
+          my="auto"
+          mx="auto"
+          src={avatar}
+          p={1}
+          h="110px"
+          w="110px"
+          border="1px solid"
+          bg="white"
+        /> */}
+        <Text
+          color={textColorPrimary}
+          fontWeight="bold"
+          fontSize="4xl"
+          mt="10px"
+        >
+          {name}
+        </Text>
 
-      <Avatar
-        mx="auto"
-        src={avatar}
-        h="87px"
-        w="87px"
-        mt="-43px"
-        border="4px solid"
-        bg="white"
-      />
-      <Text color={textColorPrimary} fontWeight="bold" fontSize="xl" mt="5px">
-        {name}
-      </Text>
-      <Text color={textColorSecondary} fontSize="sm">
-        {email}
-      </Text>
-      <Text color={textColorSecondary} fontSize="sm">
-        {college}
-      </Text>
-      <Text color={textColorSecondary} fontSize="sm">
-        {profession}
-      </Text>
-    </Card>
+        <Text color={textColorSecondary} fontSize="md">
+          {college}
+        </Text>
+      </Card>
+    </Box>
   );
 }

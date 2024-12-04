@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { getAuth, deleteUser } from "firebase/auth";
 import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "./firebase-config";
+import { db } from "../firebase-config";
 
 const DeleteAccount = ({ user }) => {
   const [isOpen, setIsOpen] = useState(false);

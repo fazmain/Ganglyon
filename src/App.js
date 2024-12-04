@@ -4,24 +4,29 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { onAuthStateChanged } from "firebase/auth";
 import { Box, ChakraProvider, Container, extendTheme } from "@chakra-ui/react";
 import Quiz from "./Quiz";
-import LandingPage from "./LandingPage";
-import Dashboard from "./Dashboard";
+import LandingPage from "./pages/QuizPage";
+import Dashboard from "./pages/Dashboard";
 import Navbar from "./NavBar";
-import Welcome from "./Welcome";
-import DemoWelcome from "./LoggedIn";
-import SignUpPage from "./SignUpPage";
+import Welcome from "./pages/Welcome";
+import DemoWelcome from "./pages/LandingPage";
+import SignUpPage from "./pages/SignUpPage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { UserProvider } from "./contexts/UserContext";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/400.css";
-import DeleteAccount from "./DeleteAccount";
-import PrivacyStatement from "./Privacy";
-import PastQuestions from "./PastQuestions";
+import DeleteAccount from "./pages/DeleteAccount";
+import PrivacyStatement from "./pages/Privacy";
+import PastQuestions from "./pages/PastQuestions";
+import NotFoundPage from "./pages/404page";
+import BookmarkPage from "./pages/BookMarks";
+import SignInPage from "./pages/SignInPage";
 
 const theme = extendTheme({
+  initialColorMode: "dark",
+  useSystemColorMode: false,
   colors: {
-    primary: "#0097E6",
-    secondary: "#F9B50B",
+    primary: "#0074FF",
+    secondary: "#17171E",
     dark: "#021116",
   },
   fonts: {
@@ -34,10 +39,14 @@ const theme = extendTheme({
   },
 });
 
+
+
 function App() {
+
   const [user, setUser] = useState(null);
   const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     const quizdb = getDatabase();
@@ -82,6 +91,7 @@ function App() {
       <ChakraProvider theme={theme}>
         <Router>
           <Container maxW="container.xl" p={4} pt={6}>
+            
             <Navbar user={user} auth={auth} />
             <Box>
               {user ? (
@@ -106,11 +116,14 @@ function App() {
                   />
                   <Route path="/privacy" element={<PrivacyStatement />} />
                   <Route path="/past-questions" element={<PastQuestions />} />
+                  <Route path="/bookmarks" element={<BookmarkPage />} />
+                  <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               ) : (
                 <>
                   <Routes>
                     <Route path="/signup" element={<SignUpPage />} />
+                    <Route path="/signin" element={<SignInPage />} />
                     <Route path="/" element={<Welcome />} />
                     <Route path="/privacy" element={<PrivacyStatement />} />
                   </Routes>

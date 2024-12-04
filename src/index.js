@@ -4,12 +4,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Helmet } from "react-helmet";
 
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Helmet>
       <meta property="og:image" content={`${window.location.origin}/meta.png`}/>
     </Helmet>
+
     <App />
     
   </React.StrictMode>
@@ -23,14 +26,3 @@ root.render(
 reportWebVitals();
 
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js')
-      .then(reg => {
-        console.log('Service worker registered.', reg);
-      })
-      .catch(err => {
-        console.log('Service worker registration failed: ', err);
-      });
-  });
-}

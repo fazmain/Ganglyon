@@ -31,7 +31,7 @@ import {
   ModalFooter,
 } from "@chakra-ui/react";
 import { Link, useParams, useLocation } from "react-router-dom";
-import { useUser } from "./contexts/UserContext";
+import { useUser } from "../contexts/UserContext";
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
@@ -125,7 +125,7 @@ const LandingPage = ({ quizzes }) => {
         {filteredQuizzes.length === 0 ? (
           <Box align="center" borderRadius={"lg"} boxShadow={"lg"} m={8} p={8}>
             <Text as="b" color="primary" size="xl">
-              New Quizzes Coming Soon!
+              Loading Quizzes...
             </Text>
           </Box>
         ) : (
@@ -140,8 +140,7 @@ const LandingPage = ({ quizzes }) => {
                   maxW="sm"
                   _hover={{ boxShadow: "lg" }}
                   mx="auto"
-                  bg={"primary"}
-                  color={"white"}
+                  bg={colorMode === "light" ? "gray.50" : "gray.600"}
                   borderRadius={"xl"}
                 >
                   <CardHeader onClick={() => handleQuizSelection(quiz)}>

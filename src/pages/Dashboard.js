@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { db } from "./firebase-config";
+import { db } from "../firebase-config";
 import { collection, query, getDocs, getDoc, doc } from "firebase/firestore";
 import {
   Box,
@@ -30,10 +30,10 @@ import {
   Navigate,
   useNavigate,
 } from "react-router-dom";
-import UserWelcome from "./UserWelcome";
-import UserScoreCard from "./UserScoreCard";
-import StreakComponent from "./UserStreak";
-import WeeklyQuizStats from "./WeeklyQuizStats";
+import UserWelcome from "../UserWelcome";
+import UserScoreCard from "../UserScoreCard";
+import StreakComponent from "../UserStreak";
+import WeeklyQuizStats from "../WeeklyQuizStats";
 
 const Dashboard = ({ user }) => {
   const [quizResults, setQuizResults] = useState([]);

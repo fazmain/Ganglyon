@@ -16,8 +16,11 @@ import {
   useDisclosure,
   VStack,
   Link,
+  Image
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import Logo from "./assets/logo.svg";
+import Logo_dark from "./assets/logo_dark.svg";
 
 const Navbar = ({ user, auth, signInWithGoogle }) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -52,7 +55,7 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
           {colorMode === "light" ? (
             <Link href="/">
               <img
-                src={require("./assets/logo.png")}
+                src={Logo}
                 alt="Logo"
                 width="150rem"
               />
@@ -60,7 +63,7 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
           ) : (
             <Link href="/">
               <img
-                src={require("./assets/logo_dark.png")}
+                src={Logo_dark}
                 alt="Logo"
                 width="150rem"
               />
@@ -97,7 +100,7 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
                   Dashboard
                 </Button>
               </Link>
-              {/* <Link href="/past-questions">
+              <Link href="/past-questions">
                 <Button
                   mx={2}
                   bg="secondary"
@@ -106,7 +109,7 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
                 >
                   Question Bank
                 </Button>
-              </Link> */}
+              </Link>
 
               <Button
                 onClick={signOut}
@@ -138,7 +141,7 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>Ganglyon</DrawerHeader>
+          <DrawerHeader>Welcome</DrawerHeader>
           <DrawerBody>
             <VStack spacing={4}>
               <Link href="/">
@@ -154,6 +157,14 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
 
               {user ? (
                 <>
+                  <Button
+                    w="100%"
+                    onClick={signOut}
+                    color="gray"
+                    _hover={{ bg: "primary", color: "white" }}
+                  >
+                    Sign Out
+                  </Button>
                   <Link href="/dashboard" w="100%">
                     <Button
                       color="primary"
@@ -180,22 +191,12 @@ const Navbar = ({ user, auth, signInWithGoogle }) => {
             </VStack>
           </DrawerBody>
           <DrawerFooter>
-            <VStack w="100%">
-              <Button
-                w="100%"
-                onClick={signOut}
-                color="gray"
-                _hover={{ bg: "primary", color: "white" }}
-              >
-                Sign Out
-              </Button>
-              <IconButton
-                aria-label="Toggle theme"
-                onClick={toggleColorMode}
-                icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-                w="100%"
-              />
-            </VStack>
+            <IconButton
+              aria-label="Toggle theme"
+              onClick={toggleColorMode}
+              icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+              w="100%"
+            />
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

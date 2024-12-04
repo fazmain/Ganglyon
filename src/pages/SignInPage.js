@@ -11,32 +11,21 @@ import {
   Link,
   HStack,
 } from "@chakra-ui/react";
-import home from "./assets/home.png";
-import SignUp from "./SignUp";
-
-// import { FcGoogle } from "react-icons/fc";
+import home from "../assets/home.png";
+import SignIn from "../SignIn";
 
 const Welcome = () => {
   const { colorMode } = useColorMode();
   const isDesktop = useBreakpointValue({ sm: false, lg: true });
   return (
     <>
-      <Flex
-        direction={{ base: "column", lg: "row" }}
-        align="center"
-        justify="center"
-        mt={7}
-        p={5}
-        borderRadius="lg"
-        boxShadow="lg"
-        bg={colorMode === "light" ? "white" : "gray.700"}
-      >
+      <Box m={1} pt={4}>
         <Image
           pl={10}
           src={home}
           alt="Home"
           objectFit="contain"
-          height="50vh"
+          height="30vh"
           mx={isDesktop ? 10 : "auto"}
         />
         <Box p={2} mt={2} mx={"auto"}>
@@ -45,16 +34,13 @@ const Welcome = () => {
               size={"xl"}
               color={colorMode === "light" ? "dark" : "gray.50"}
             >
-              Sign Up
+              Sign In
             </Heading>
-            <Text color={"primary"}>
-              <Link href="/">Sign in Instead</Link>
-            </Text>
 
-            <SignUp />
+            <SignIn />
           </Stack>
         </Box>
-      </Flex>
+      </Box>
     </>
   );
 };

@@ -110,7 +110,7 @@ const StreakComponent = () => {
           <Text alignContent={"center"} fontSize="xl">
             Current Streak:{" "}
           </Text>
-          <Heading alignContent={"center"}>{streak + 1}</Heading>
+          <Heading alignContent={"center"}>{streak}</Heading>
           <Text alignContent={"center"} fontSize="xl">
             Days
           </Text>

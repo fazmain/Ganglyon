@@ -5,16 +5,16 @@ import { Box, Heading} from "@chakra-ui/react";
 const PrivacyStatement = () => {
   return (
     <Box p={5} m={10}>
-      <Heading >Privacy Policy for Synaptic</Heading >
+      <Heading >Privacy Policy for Ganglyon</Heading >
       <p>
         <strong>Effective Date:</strong> 1 June, 2024
       </p>
 
       <Heading size={"md"}>1. Introduction</Heading >
       <p>
-        Welcome to Synaptic, the ultimate quiz app for Bangladeshi medical
+        Welcome to Ganglyon, the ultimate quiz app for Bangladeshi medical
         students. This Privacy Policy explains how we collect, use, and protect
-        your personal information. By using Synaptic, you agree to the terms
+        your personal information. By using Ganglyon, you agree to the terms
         outlined in this policy.
       </p>
 
@@ -37,7 +37,7 @@ const PrivacyStatement = () => {
       <p>The information we collect is used to:</p>
       <ul>
         <li>Personalize your experience within the app</li>
-        <li>Send you notifications relevant to your use of Synaptic</li>
+        <li>Send you notifications relevant to your use of Ganglyon</li>
       </ul>
 
       <Heading size={"md"}>4. Data Storage</Heading >
@@ -63,7 +63,7 @@ const PrivacyStatement = () => {
 
       <Heading size={"md"}>7. Children's Privacy</Heading >
       <p>
-        Synaptic is not intended for use by children under the age of 13. We do
+        Ganglyon is not intended for use by children under the age of 13. We do
         not knowingly collect personal information from children.
       </p>
 

@@ -77,7 +77,7 @@ export const barChartOptions = {
   },
   plotOptions: {
     bar: {
-      borderRadius: 10,
+      borderRadius: 5,
       columnWidth: "20px",
     },
   },

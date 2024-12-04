@@ -30,7 +30,7 @@ function SignIn() {
     setIsLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      
+
       toast({
         title: "Signed in successfully",
         status: "success",
@@ -84,10 +84,7 @@ function SignIn() {
 
   return (
     <Box>
-      <Text fontSize="xl" as="b">
-        Sign in
-      </Text>
-      <FormControl mt="4" isRequired>
+      <FormControl isRequired>
         <FormLabel>Email</FormLabel>
         <Input
           variant="filled"

@@ -4,8 +4,8 @@ import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase-config";
 import UserProfile from "./UserProfile";
-import male from "./assets/avatars/male.png";
-import female from "./assets/avatars/female.png";
+import male from "./assets/avatars/male.gif";
+import female from "./assets/avatars/female.gif";
 
 const UserWelcome = () => {
   const user = useUser();

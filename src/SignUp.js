@@ -188,7 +188,7 @@ function SignUp() {
 
   return (
     <Box my={3}>
-      <FormControl isRequired mt={4}>
+      <FormControl isRequired>
         <FormLabel>Name</FormLabel>
         <Input
           variant="filled"

@@ -10,9 +10,9 @@ import {
   Flex,
   Link,
   HStack,
+  Button,
 } from "@chakra-ui/react";
 import home from "./assets/home.png";
-import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 
 // import { FcGoogle } from "react-icons/fc";
@@ -26,18 +26,14 @@ const Welcome = () => {
         direction={{ base: "column", lg: "row" }}
         align="center"
         justify="center"
-        mt={7}
-        px={7}
-        p={5}
-        borderRadius="lg"
-        boxShadow="lg"
-        bg={colorMode === "light" ? "white" : "gray.700"}
+        mt={5}
+        p={4}
       >
         <Image
           src={home}
           alt="Home"
           objectFit="contain"
-          height="50vh"
+          height="30vh"
           mx={isDesktop ? 10 : "auto"}
         />
         <Box p={2} mt={2} mx={"auto"}>
@@ -46,20 +42,35 @@ const Welcome = () => {
               size={"xl"}
               color={colorMode === "light" ? "dark" : "gray.50"}
             >
-              Medical Quizzes have never been easier!
+              Master Your Medical Exams with Ganglyon!
             </Heading>
             <Text
               fontSize={"md"}
-              color={colorMode === "light" ? "gray.600" : "gray.200"}
+              color={colorMode === "light" ? "gray.500" : "gray.200"}
             >
-              Login on Sign up to take a quiz.{" "}
+              The ultimate app for Bangladeshi medical students. Access quizzes,
+              past question papers, and track your progress all in one place.{" "}
             </Text>
             {/* Depreciated google login */}
             {/* <Button onClick={signInWithGoogle} maxW={"md"} variant={"outline"} leftIcon={<FcGoogle />} size="sm" py={2} px={4} >
           Sign in with Google
         </Button> */}
-
-            <SignIn />
+            <Link href="/signin">
+              <Button
+                height="50px"
+                bg="primary"
+                color="white"
+                width={"full"}
+                mt={6}
+              >
+                Sign in
+              </Button>
+            </Link>
+            <Link href="/signup">
+              <Button height="50px" bg="secondary" color="white" width={"full"}>
+                Register
+              </Button>
+            </Link>
           </Stack>
         </Box>
       </Flex>

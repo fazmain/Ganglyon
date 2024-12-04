@@ -16,29 +16,28 @@ import {
   VStack,
   Link,
 } from "@chakra-ui/react";
-import home from "./assets/home.png";
-import { useUser } from "./contexts/UserContext";
-import UserProfile from "./UserProfile";
-import Carousel from "./Carousel";
-import Image1 from "./assets/carousel/image1.png";
-import Image2 from "./assets/carousel/image2.png";
-import Image3 from "./assets/carousel/image3.png";
+import home from "../assets/home.png";
+import { useUser } from "../contexts/UserContext";
+import UserProfile from "../UserProfile";
+import Carousel from "../Carousel";
+import Image1 from "../assets/carousel/image1.png";
+import Image2 from "../assets/carousel/image2.png";
+import Image3 from "../assets/carousel/image3.png";
+// import qbankImage from "../assets/qbank.png";
 
 const subjects = [
   "Anatomy",
   "Physiology",
   "Biochemistry",
-  "Gyne & Obs",
-  "Surgery",
-  "Medicine",
-  "Community Med",
+  // "Gyne & Obs",
+  // "Surgery",
+  // "Medicine",
+  // "Community Med",
   "Forensic Med",
   "Pharmacology",
 ];
 
-const images = [
-  Image1, Image2, Image3
-];
+const images = [Image1, Image2, Image3];
 
 const DemoWelcome = () => {
   const { colorMode } = useColorMode();
@@ -51,37 +50,40 @@ const DemoWelcome = () => {
       setCurrentIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000); 
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [images.length]);
 
   return (
     <>
-      <Box
-        my={6}
-        p={6}
-        borderRadius="lg"
-        boxShadow="lg"
-        bg={colorMode === "light" ? "white" : "gray.700"}
-      >
-        <Text fontSize="2xl" as="b">
+      <Box my={5} p={1}>
+        <Text fontSize="3xl" as="b">
           Welcome, {user ? user.displayName : "User"}!
         </Text>
-        <br />
-        <Text
-          fontSize="md"
-          color={colorMode === "light" ? "gray.600" : "gray.400"}
-        >
-          Let's start your quiz selecting a subject from below
-        </Text>
       </Box>
-      <Box m={{base:0, md:10}} boxShadow={"lg"} borderRadius={"2xl"}>
-       <Image src={images[currentIndex]}/>
-      </Box>
+      {isDesktop ? null : (
+        <Box m={{ base: 0, md: 10 }} boxShadow={"lg"} borderRadius={"2xl"}>
+          <Image src={images[currentIndex]} />
+        </Box>
+      )}
+      {/* {isDesktop ? (
+        <Box maxW="lg">
+          <Link href={`/past-questions`}>
+            <Image src={qbankImage} />
+          </Link>
+        </Box>
+      ) : (
+        <Box my={3}>
+          <Link href={`/past-questions`}>
+            <Image src={qbankImage} />
+          </Link>
+        </Box>
+      )} */}
+
       <Box my={6} p={6} borderRadius="lg" boxShadow="lg">
         <Heading size="lg" my={5}>
-          Subjects
+          Quizzes
         </Heading>
         <SimpleGrid columns={{ base: 2, md: 3, lg: 6 }} spacing={6}>
           {subjects.map((subject) => (
@@ -95,7 +97,7 @@ const DemoWelcome = () => {
                 <VStack>
                   <Box px={12} pt={7} pb={3}>
                     <img
-                      src={require(`./assets/subjects/${subject}.png`)}
+                      src={require(`../assets/subjects/${subject}.png`)}
                       alt={subject}
                     />
                   </Box>
