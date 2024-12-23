@@ -1,5 +1,5 @@
 # Ganglyon - Medical Quiz platform for Bangladeshi MBBS students
 
-visit: [quiz.ganglyon.com]
+[Visit the site]([https://www.genome.gov/](https://quiz.ganglyon.com/))
 
 Build using React and ChakraUI.
